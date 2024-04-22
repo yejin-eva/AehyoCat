@@ -3,19 +3,23 @@ using UnityEngine;
 
 public class ExitButton : MonoBehaviour
 {
-    [SerializeField] private UnityEngine.UI.Button button;
+    private UnityEngine.UI.Button exitButton ;
     
     private void OnEnable()
     {
-        button.onClick.AddListener(() => OnExitButtonClicked());
+        exitButton = GetComponent<UnityEngine.UI.Button>();
+        exitButton.onClick.AddListener(() => OnExitButtonClicked());
     }
     private void OnDisable()
     {
-        button.onClick.RemoveAllListeners();
+        exitButton.onClick.RemoveAllListeners();
     }
 
     private void OnExitButtonClicked()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
         Application.Quit();
     }
 
