@@ -56,21 +56,4 @@ public class TransparentWindow : MonoBehaviour
         Application.runInBackground = true;
     }
 
-    //private void Update()
-    //{
-    //    SetClickthrough(Physics2D.OverlapPoint(CodeMonkey.Utils.UtilsClass.GetMouseWorldPosition()) == null);
-    //}
-
-    //private void SetClickthrough(bool clickthrough)
-    //{
-    //    if (clickthrough)
-    //    {
-    //        SetWindowLong(hWnd, GWL_STYLE, WS_EX_LAYERED | WS_EX_TRANSPARENT);
-    //    }
-    //    else
-    //    {
-    //        SetWindowLong(hWnd, GWL_STYLE, WS_EX_LAYERED);
-    //        SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY);
-    //    }
-    //}
 }

@@ -12,14 +12,10 @@ public class PositionUIAtBottomRight : MonoBehaviour
     private float width;
     private float height;
 
-    private void Start()
+    private void OnEnable()
     {
         width = rectTransform.rect.width;
         height = rectTransform.rect.height;
-    }
-
-    private void Update()
-    {
         rectTransform.anchoredPosition = new Vector2(-((width + widthOffset) / 2), (height + heightOffset) / 2);
     }
 }
