@@ -297,7 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1108e1da19c2d4ba6bdeca45ac8ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stickyNotesSO: {fileID: 11400000, guid: 2dca5c8dae730b74f8481aff3bc64622, type: 2}
   stickyNote: {fileID: 4373229824138340501, guid: 6304a73ebd46e50439610b6b0d12fa0b, type: 3}
   enabledStickyNotes: {fileID: 1745991193}
 --- !u!1 &416798802
@@ -1202,7 +1201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 16}
+  m_AnchoredPosition: {x: 2, y: 15}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &998491317
@@ -1227,8 +1226,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Have a great day today!!!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f6da4f81887a9d9499300b813e4f01d4, type: 2}
+  m_sharedMaterial: {fileID: 7334142520086486681, guid: f6da4f81887a9d9499300b813e4f01d4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1252,8 +1251,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
