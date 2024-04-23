@@ -7,7 +7,7 @@ public class StickyNotesButton : MonoBehaviour
 {
     public Action stickyNoteButtonClicked;
 
-    [SerializeField] StickyNotesContainer stickyNotesContainer;
+    [SerializeField] StickyNotesManager stickyNotesContainer;
 
     private UnityEngine.UI.Button stickyNotesButton;
     

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StickyNotesContainer : MonoBehaviour
+public class StickyNotesManager : MonoBehaviour
 {
     public bool IsOpen => isOpen;
 
@@ -39,6 +39,9 @@ public class StickyNotesContainer : MonoBehaviour
 
     private void OnDeletedStickyNote(StickyNote note)
     {
+        note.onDeletedStickyNote -= OnDeletedStickyNote;
+        note.onAddStickyNote -= OnAddStickyNote;
+
         Destroy(note.gameObject);
         Debug.Log(enabledStickyNotes.childCount);
         if (enabledStickyNotes.childCount == 1)

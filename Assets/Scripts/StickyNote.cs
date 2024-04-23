@@ -35,4 +35,11 @@ public class StickyNote : MonoBehaviour
     {
         inputField.text = "";
     }
+
+    private void OnDestroy()
+    {
+        clearButton.clearStickyNote -= OnClearedStickyNote;
+        deleteButton.deleteStickyNote -= OnDeletedStickyNote;
+        addButton.addStickyNote -= OnAddStickyNote;
+    }
 }
