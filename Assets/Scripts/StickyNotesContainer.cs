@@ -7,11 +7,13 @@ public class StickyNotesContainer : MonoBehaviour
     [SerializeField] GameObject stickyNote;
     [SerializeField] Transform enabledStickyNotes;
 
-    private bool isOpen = true;
-
+    private bool isOpen = false;
+    private void Awake()
+    {
+        SetOpenStatus(isOpen);
+    }
     private void OnEnable()
     {
-        Debug.Log("enabled container");
         if (enabledStickyNotes.childCount == 0)
         {
             CreateStickyNote();
