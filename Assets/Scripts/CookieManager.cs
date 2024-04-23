@@ -3,11 +3,12 @@ using DG.Tweening;
 
 public class CookieManager : MonoBehaviour
 {
-    [SerializeField] private float cookieSpawnTime = 3f;
+    
     [SerializeField] private GameObject cookiePrefab;
     [SerializeField] private RectTransform canvasRect;
     [SerializeField] private RectTransform catRect;
 
+    private float cookieSpawnTime = 3f;
     private float timer = 0f;
 
     private void Start()
@@ -20,6 +21,7 @@ public class CookieManager : MonoBehaviour
         if (timer >= cookieSpawnTime)
         {
             timer = 0f;
+            cookieSpawnTime = Random.Range(3f, 10f);
             SpawnCookie();
         }
     }
