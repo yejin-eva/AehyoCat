@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Quotes", menuName = "Quotes")]
-public class Quotes : ScriptableObject
+public class QuotesSO : ScriptableObject
 {
     public string[] quotes;
     public string GetRandomQuote()

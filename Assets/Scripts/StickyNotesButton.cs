@@ -7,7 +7,7 @@ public class StickyNotesButton : MonoBehaviour
 {
     public Action stickyNoteButtonClicked;
 
-    [SerializeField] StickyNote stickyNote;
+    [SerializeField] StickyNotesContainer stickyNotesContainer;
 
     private UnityEngine.UI.Button stickyNotesButton;
     
@@ -26,7 +26,7 @@ public class StickyNotesButton : MonoBehaviour
     }
     public void OnStickyNotesButtonClicked()
     {
-        stickyNote.SetOpenStatus(!stickyNote.IsOpen);
+        stickyNotesContainer.SetOpenStatus(!stickyNotesContainer.IsOpen);
     }
 
     

@@ -3,20 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitStickyNotesButton : MonoBehaviour
+public class CloseStickyNotesButton : MonoBehaviour
 {
     public Action closeStickyNote;
 
     private void OnEnable()
     {
-        GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnExitStickyNotesButtonClicked());
+        GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCloseStickyNotesButtonClicked());
     }
     private void OnDisable()
     {
         GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
     }
 
-    private void OnExitStickyNotesButtonClicked()
+    private void OnCloseStickyNotesButtonClicked()
     {
         closeStickyNote?.Invoke();
     }

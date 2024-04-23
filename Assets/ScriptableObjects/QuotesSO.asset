@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86be727bd678d114384ec9b8788c6a19, type: 3}
-  m_Name: Quotes
+  m_Name: QuotesSO
   m_EditorClassIdentifier: 
   quotes:
   - Cheer up dear

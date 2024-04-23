@@ -1,39 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StickyNote : MonoBehaviour
 {
-    public bool IsOpen => isOpen;
-
-    [SerializeField] ExitStickyNotesButton closeStickyNotesButton;
+    public Action<StickyNote> onDeletedStickyNote;
+    public Action<StickyNote> onAddStickyNote;
+    
+    [SerializeField] CloseStickyNotesButton closeStickyNotesButton;
     [SerializeField] ClearButton clearButton;
+    [SerializeField] DeleteButton deleteButton;
+    [SerializeField] AddButton addButton;
     [SerializeField] TMPro.TMP_InputField inputField;
-
-    private bool isOpen = false;
-
-    private void Awake()
-    {
-        SetOpenStatus(isOpen);
-    }
 
     private void Start()
     {
-        closeStickyNotesButton.closeStickyNote += OnClosedStickyNote;
         clearButton.clearStickyNote += OnClearedStickyNote;
+        deleteButton.deleteStickyNote += OnDeletedStickyNote;
+        addButton.addStickyNote += OnAddStickyNote;
     }
 
-    private void OnClosedStickyNote()
+    private void OnAddStickyNote()
     {
-        SetOpenStatus(false);
+        onAddStickyNote?.Invoke(this);
     }
+
+    private void OnDeletedStickyNote()
+    {
+        onDeletedStickyNote?.Invoke(this);
+    }
+
     private void OnClearedStickyNote()
     {
         inputField.text = "";
-    }
-    public void SetOpenStatus(bool status)
-    {
-        isOpen = status;
-        this.gameObject.SetActive(isOpen);
     }
 }

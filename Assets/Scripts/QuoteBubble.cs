@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuoteBubble : MonoBehaviour
 {
-    [SerializeField] Quotes quotes;
+    [SerializeField] QuotesSO quotes;
     [SerializeField] private TMPro.TextMeshProUGUI quotesText;
 
     private int lastIndex = -1;
