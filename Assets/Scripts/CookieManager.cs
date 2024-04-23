@@ -11,10 +11,6 @@ public class CookieManager : MonoBehaviour
     private float cookieSpawnTime = 3f;
     private float timer = 0f;
 
-    private void Start()
-    {
-        canvasRect = GetComponent<RectTransform>();
-    }
     private void Update()
     {
         UpdateTimer();
@@ -57,10 +53,17 @@ public class CookieManager : MonoBehaviour
 
         if (cookieRect != null && canvasRect != null)
         {
-            float x = UnityEngine.Random.Range(0, canvasRect.sizeDelta.x - cookieRect.sizeDelta.x);
-            float y = UnityEngine.Random.Range(0, canvasRect.sizeDelta.y - cookieRect.sizeDelta.y);
+            float canvasWidth = canvasRect.rect.width;
+            float canvasHeight = canvasRect.rect.height;
 
-            cookieRect.anchoredPosition = new Vector2(x, y);
+            // Calculate the maximum extents the cookie can be positioned at
+            float x = UnityEngine.Random.Range(cookieRect.sizeDelta.x / 2, canvasWidth - cookieRect.sizeDelta.x / 2);
+            float y = UnityEngine.Random.Range(cookieRect.sizeDelta.y / 2, canvasHeight - cookieRect.sizeDelta.y / 2);
+            
+            Debug.Log($"{cookieRect.sizeDelta.x / 2}, {canvasHeight}");
+
+            // Set the anchored position of the cookie within the canvas
+            cookieRect.anchoredPosition = new Vector2(x - canvasWidth / 2, y - canvasHeight / 2);
         }
         else
         {
