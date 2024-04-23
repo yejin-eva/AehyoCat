@@ -8,7 +8,6 @@ public class StickyNote : MonoBehaviour
     public Action<StickyNote> onDeletedStickyNote;
     public Action<StickyNote> onAddStickyNote;
     
-    [SerializeField] CloseStickyNotesButton closeStickyNotesButton;
     [SerializeField] ClearButton clearButton;
     [SerializeField] DeleteButton deleteButton;
     [SerializeField] AddButton addButton;
