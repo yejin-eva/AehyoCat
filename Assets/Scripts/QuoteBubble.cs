@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +7,19 @@ public class QuoteBubble : MonoBehaviour
 {
     [SerializeField] QuotesSO quotes;
     [SerializeField] private TMPro.TextMeshProUGUI quotesText;
+    [SerializeField] private GameObject quoteBubble;
 
     private int lastIndex = -1;
+    private Vector3 originalLocalScale;
     private void Awake()
     {
         this.gameObject.SetActive(false);
+        this.originalLocalScale = transform.localScale;
     }
     private void OnEnable()
     {
         UpdateQuoteText();
+        transform.DOScale(originalLocalScale, 0.3f).From(originalLocalScale * 0.5f).SetEase(Ease.OutBack);
     }
     
     private void UpdateQuoteText()
@@ -34,6 +39,7 @@ public class QuoteBubble : MonoBehaviour
 
     private void HideQuoteBubble()
     {
-        this.gameObject.SetActive(false);
+        transform.DOScale(originalLocalScale * 0.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+        quoteBubble.SetActive(true);
     }
 }

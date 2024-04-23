@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class OpenQuotesButton : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class OpenQuotesButton : MonoBehaviour
     private void OnOpenQuotesButtonClicked()
     {
         quoteBubble.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     
