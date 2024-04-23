@@ -3,26 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenStickyNotesButton : MonoBehaviour
+public class StickyNotesButton : MonoBehaviour
 {
     public Action stickyNoteButtonClicked;
 
     [SerializeField] StickyNote stickyNote;
 
-    private UnityEngine.UI.Button openStickyNotesButton;
+    private UnityEngine.UI.Button stickyNotesButton;
     
     private void Awake()
     {
-        openStickyNotesButton = GetComponent<UnityEngine.UI.Button>();
+        stickyNotesButton = GetComponent<UnityEngine.UI.Button>();
     }
     
     private void OnEnable()
     {
-        openStickyNotesButton.onClick.AddListener(() => OnStickyNotesButtonClicked());
+        stickyNotesButton.onClick.AddListener(() => OnStickyNotesButtonClicked());
     }
     private void OnDisable()
     {
-        openStickyNotesButton.onClick.RemoveAllListeners();
+        stickyNotesButton.onClick.RemoveAllListeners();
     }
     public void OnStickyNotesButtonClicked()
     {
