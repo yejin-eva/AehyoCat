@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragComponent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public Action<DragComponent> endDrag;
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("being drag");
@@ -17,6 +17,7 @@ public class DragComponent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        endDrag?.Invoke(this);
         Debug.Log("end drag");
     }
 
