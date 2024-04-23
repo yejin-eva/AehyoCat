@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ExitStickyNotesButton : MonoBehaviour
 {
-    [SerializeField] OpenStickyNotesButton openStickyNotesButton;
+    public Action closeStickyNote;
 
     private void OnEnable()
     {
@@ -18,6 +18,8 @@ public class ExitStickyNotesButton : MonoBehaviour
 
     private void OnExitStickyNotesButtonClicked()
     {
-        openStickyNotesButton.SetOpenStatus(false);
+        closeStickyNote?.Invoke();
     }
+
+    
 }

@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 298211189}
   - component: {fileID: 298211192}
   m_Layer: 5
-  m_Name: ExitStickyNotesButton
+  m_Name: CloseStickyNotesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ec030ea10e5094a8dddd35751cff37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openStickyNotesButton: {fileID: 445785969}
 --- !u!1 &416798802
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d9b0dd2434fcc42878454c63832f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stickyNoteItem: {fileID: 610685215}
+  stickyNote: {fileID: 610685221}
 --- !u!1 &492697624
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +937,7 @@ GameObject:
   - component: {fileID: 610685218}
   - component: {fileID: 610685217}
   - component: {fileID: 610685220}
+  - component: {fileID: 610685221}
   m_Layer: 5
   m_Name: StickyNote
   m_TagString: Untagged
@@ -1116,6 +1116,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f872c6385138c424787966c7f4bf9f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &610685221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610685215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80b9b45bf1bb0946a4a2ee087ec749c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeStickyNotesButton: {fileID: 298211192}
+  clearButton: {fileID: 1037805971}
+  inputField: {fileID: 610685217}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe565b3615845b4f8316deabf588167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 610685217}
 --- !u!1 &1234371418
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class ClearButton : MonoBehaviour
 {
-    [SerializeField] TMPro.TMP_InputField inputField;
+    public Action clearStickyNote;
 
     private void OnEnable()
     {
@@ -15,6 +16,6 @@ public class ClearButton : MonoBehaviour
 
     private void OnClearButtonClicked()
     {
-        inputField.text = "";
+        clearStickyNote?.Invoke();
     }
 }
