@@ -12,10 +12,6 @@ public static class WeatherAPIHelper
 
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
 
-        //request.UseDefaultCredentials = true;
-        //request.PreAuthenticate = true;
-        //request.Credentials = CredentialCache.DefaultCredentials;
-
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string jsonResponse = reader.ReadToEnd();
