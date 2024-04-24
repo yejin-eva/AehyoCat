@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
@@ -47,7 +48,8 @@ public class WeatherManager : MonoBehaviour
         weatherDisplay.SetWeatherDescriptionText("Loading weather data...");
 
         bool completed = false;
-        StartCoroutine(UpdateWeatherInformation(() => completed = true));
+
+        _ = UpdateWeatherInformation(() => completed = true);
 
         float startTime = Time.time;
         while (!completed && Time.time - startTime < timeoutSeconds)
@@ -61,9 +63,9 @@ public class WeatherManager : MonoBehaviour
         }
     
     }
-    private IEnumerator UpdateWeatherInformation(System.Action onComplete)
+    private async Task UpdateWeatherInformation(System.Action onComplete)
     {
-        WeatherData weatherData = WeatherAPIHelper.GetWeatherData();
+        WeatherData weatherData = await WeatherAPIHelper.GetWeatherData();
         string weatherDescription = weatherData.weather[0].description;
         float weatherCode = weatherData.weather[0].id;
 
@@ -74,6 +76,5 @@ public class WeatherManager : MonoBehaviour
         previousWeatherDescription = weatherDescription;
 
         onComplete?.Invoke();
-        yield return null;
     }
 }
