@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeatherButton : MonoBehaviour
 {
-    [SerializeField] private WeatherManager weatherManager;
+    [SerializeField] private WeatherDisplay weatherDisplay;
 
     private void OnEnable()
     {
@@ -16,6 +16,6 @@ public class WeatherButton : MonoBehaviour
     }
     private void OnWeatherButtonClicked()
     {
-        weatherManager.SetOpenStatus(!weatherManager.IsOpen);
+        weatherDisplay.SetOpenStatus(!weatherDisplay.IsOpen);
     }
 }

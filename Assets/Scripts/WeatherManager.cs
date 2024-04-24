@@ -1,27 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
-    public bool IsOpen => isOpen;
-
-    [SerializeField] private WeatherAPIManager weatherAPIManager;
-    [SerializeField] private TMPro.TextMeshProUGUI weatherDescriptionText;
+    [SerializeField] private WeatherDisplay weatherDisplay;
     [SerializeField] private float timeoutSeconds = 3f;
 
-    private bool isOpen;
-    private void Awake()
-    {
-        SetOpenStatus(isOpen);
-    }
+    
     private void OnEnable()
     {
-        StartCoroutine(UpdateWeatherDescriptionWithTimeout());
-
+        weatherDisplay.OnOpenedWeatherDisplay += OnWeatherDisplayOpened;
     }
+
+    private void OnWeatherDisplayOpened()
+    {
+        StartCoroutine(UpdateWeatherDescriptionWithTimeout());
+    }
+
     private IEnumerator UpdateWeatherDescriptionWithTimeout()
     {
+        weatherDisplay.SetWeatherDescriptionText("Loading weather data...");
+
         bool completed = false;
         StartCoroutine(UpdateWeatherInformation(() => completed = true));
 
@@ -32,7 +33,7 @@ public class WeatherManager : MonoBehaviour
         }
         if (!completed)
         {
-            weatherDescriptionText.text = "Failed to get weather data";
+            weatherDisplay.SetWeatherDescriptionText("Failed to get weather data");
             Debug.Log("Failed to fetch weather description in time, using default.");
         }
     
@@ -41,15 +42,11 @@ public class WeatherManager : MonoBehaviour
     {
         WeatherData weatherData = WeatherAPIHelper.GetWeatherData();
         string weatherDescription = weatherData.weather[0].description;
-        weatherDescriptionText.text = $"Current Weather: {weatherDescription}";
+        weatherDisplay.SetWeatherDescriptionText($"Current Weather: {weatherDescription}");
         onComplete?.Invoke();
         yield return null;
     }
-    public void SetOpenStatus(bool isOpen)
-    {
-        this.isOpen = isOpen;
-        gameObject.SetActive(isOpen);
-    }
+    
 
 
 }
