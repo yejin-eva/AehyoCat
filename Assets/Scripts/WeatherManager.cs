@@ -7,24 +7,20 @@ public class WeatherManager : MonoBehaviour
 {
     [SerializeField] private WeatherDisplay weatherDisplay;
     [SerializeField] private float timeoutSeconds = 3f;
-    //[SerializeField] private float updateInterval = 60f;
+    [SerializeField] private float updateInterval = 60f;
 
-    private float timer = 0f;
-
+    private float timer = Mathf.Infinity;
+    private float previousWeatherCode;
+    private string previousWeatherDescription;
     
     private void OnEnable()
     {
         weatherDisplay.OnOpenedWeatherDisplay += OnWeatherDisplayOpened;
     }
-    //private void Update()
-    //{
-    //    UpdateTimer();
-    //    if (timer >= updateInterval)
-    //    {
-    //        timer = 0f;
-    //        StartCoroutine(UpdateWeatherDescriptionWithTimeout());
-    //    }
-    //}
+    private void Update()
+    {
+        UpdateTimer();
+    }
 
     private void UpdateTimer()
     {
@@ -33,7 +29,17 @@ public class WeatherManager : MonoBehaviour
 
     private void OnWeatherDisplayOpened()
     {
-        StartCoroutine(UpdateWeatherDescriptionWithTimeout());
+        if (timer >= updateInterval)
+        {
+            timer = 0f;
+            StartCoroutine(UpdateWeatherDescriptionWithTimeout());
+        }
+        else
+        {
+            weatherDisplay.SetWeatherDescriptionText($"Current Weather: {previousWeatherDescription}");
+            weatherDisplay.SetWeatherImageByCode(previousWeatherCode);
+        }
+        
     }
 
     private IEnumerator UpdateWeatherDescriptionWithTimeout()
@@ -63,7 +69,10 @@ public class WeatherManager : MonoBehaviour
 
         weatherDisplay.SetWeatherDescriptionText($"Current Weather: {weatherDescription}");
         weatherDisplay.SetWeatherImageByCode(weatherCode);
-        
+
+        previousWeatherCode = weatherCode;
+        previousWeatherDescription = weatherDescription;
+
         onComplete?.Invoke();
         yield return null;
     }
