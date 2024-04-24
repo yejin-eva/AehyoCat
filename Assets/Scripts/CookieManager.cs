@@ -56,12 +56,9 @@ public class CookieManager : MonoBehaviour
             float canvasWidth = canvasRect.rect.width;
             float canvasHeight = canvasRect.rect.height;
 
-            // Calculate the maximum extents the cookie can be positioned at
             float x = UnityEngine.Random.Range(cookieRect.sizeDelta.x / 2, canvasWidth - cookieRect.sizeDelta.x / 2);
             float y = UnityEngine.Random.Range(cookieRect.sizeDelta.y / 2, canvasHeight - cookieRect.sizeDelta.y / 2);
             
-            Debug.Log($"{cookieRect.sizeDelta.x / 2}, {canvasHeight}");
-
             // Set the anchored position of the cookie within the canvas
             cookieRect.anchoredPosition = new Vector2(x - canvasWidth / 2, y - canvasHeight / 2);
         }
