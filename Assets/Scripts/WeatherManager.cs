@@ -7,7 +7,7 @@ public class WeatherManager : MonoBehaviour
 {
     [SerializeField] private WeatherDisplay weatherDisplay;
     [SerializeField] private float timeoutSeconds = 3f;
-    [SerializeField] private float updateInterval = 60f;
+    //[SerializeField] private float updateInterval = 60f;
 
     private float timer = 0f;
 
