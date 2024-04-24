@@ -7,11 +7,28 @@ public class WeatherManager : MonoBehaviour
 {
     [SerializeField] private WeatherDisplay weatherDisplay;
     [SerializeField] private float timeoutSeconds = 3f;
+    [SerializeField] private float updateInterval = 60f;
+
+    private float timer = 0f;
 
     
     private void OnEnable()
     {
         weatherDisplay.OnOpenedWeatherDisplay += OnWeatherDisplayOpened;
+    }
+    //private void Update()
+    //{
+    //    UpdateTimer();
+    //    if (timer >= updateInterval)
+    //    {
+    //        timer = 0f;
+    //        StartCoroutine(UpdateWeatherDescriptionWithTimeout());
+    //    }
+    //}
+
+    private void UpdateTimer()
+    {
+        timer += Time.deltaTime;
     }
 
     private void OnWeatherDisplayOpened()
@@ -42,11 +59,12 @@ public class WeatherManager : MonoBehaviour
     {
         WeatherData weatherData = WeatherAPIHelper.GetWeatherData();
         string weatherDescription = weatherData.weather[0].description;
+        float weatherCode = weatherData.weather[0].id;
+
         weatherDisplay.SetWeatherDescriptionText($"Current Weather: {weatherDescription}");
+        weatherDisplay.SetWeatherImageByCode(weatherCode);
+        
         onComplete?.Invoke();
         yield return null;
     }
-    
-
-
 }
