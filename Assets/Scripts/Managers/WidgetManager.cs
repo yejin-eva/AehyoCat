@@ -18,15 +18,9 @@ public class WidgetManager : MonoBehaviour
         cookieManager.OnAteCookie += OnAteCookie;
         cat.OnCatIsHungry += OnCatIsHungry;
         cat.OnCatIsFull += OnCatIsFull;
-        cat.OnNotifyHunger += OnNotifyHunger;
         sadCatButton.OnSadCatButton += SetHungerMessage;
     }
 
-    private void OnNotifyHunger()
-    {
-        quoteBubble.gameObject.SetActive(true);
-        quoteBubble.SetQuoteText("I'm getting hungry!!");
-    }
 
     private void OnCatIsFull()
     {

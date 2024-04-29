@@ -8,15 +8,12 @@ public class Cat : MonoBehaviour
     public float Health => hp;
     public Action OnCatIsHungry;
     public Action OnCatIsFull;
-    public Action OnNotifyHunger;
 
     [SerializeField] private UnityEngine.UI.Image progressBarFill;
 
     private float hp = 0f;
     private float maxHp = 100.0f;
-    private float healthDecreaseAmount = 2f;
-    private float hungerNotificationInterval = 2f;
-    private float timer = Mathf.Infinity;
+    private float healthDecreaseAmount = 10f;
     private bool isDeadNotified = false;
     private bool isHungryNotified = false;
 
@@ -29,13 +26,8 @@ public class Cat : MonoBehaviour
     {
         CheckHp();
         SubtractHealth(Time.deltaTime * healthDecreaseAmount);
-        UpdateTimer();
     }
 
-    private void UpdateTimer()
-    {
-        timer += Time.deltaTime;
-    }
 
     private void CheckHp()
     {
@@ -54,14 +46,6 @@ public class Cat : MonoBehaviour
                 OnCatIsHungry?.Invoke();
                 isHungryNotified = true;
                 isDeadNotified = false;
-            }
-        }
-        else if (hp <= 50)
-        {
-            if (timer >= hungerNotificationInterval)
-            {
-                OnNotifyHunger?.Invoke();
-                timer = 0f;
             }
         }
         else
@@ -90,10 +74,6 @@ public class Cat : MonoBehaviour
     {
         hp = Mathf.Min(hp + health, maxHp);
         FillHealthBar();
-    }
-    private void NotifyHunger()
-    {
-
     }
     private void FillHealthBar()
     {
