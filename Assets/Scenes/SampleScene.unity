@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 105635441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f475c3ecac97f3842bb9b5ad96665cd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 779db00d42d4ba84ebb372e3f2f4e76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &156249633
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 249788158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f94ad4170dd74444bdd244aea0b46a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 00d2e49384c3298409c015e280ded31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stickyNote: {fileID: 4373229824138340501, guid: 6304a73ebd46e50439610b6b0d12fa0b, type: 3}
@@ -728,12 +728,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1400735189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3da79a4d94b55f41baaa44b288293db, type: 3}
+  m_Script: {fileID: 11500000, guid: 2329d307e41b79f4dbf2a136f2a5553f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weatherDisplay: {fileID: 1449749433}
-  timeoutSeconds: 3
-  updateInterval: 10
+  updateInterval: 60
 --- !u!1 &1449749431
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +945,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1763300007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521af27eac1a09d4e9df0ada77b02340, type: 3}
+  m_Script: {fileID: 11500000, guid: d73fe5aea97a9e940b01df3de1a44484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cookiePrefab: {fileID: 1235404994076970899, guid: 3b24e488916977a4cbcb95f90d04f9e7, type: 3}
@@ -1173,11 +1172,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2035422579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de188bd065d6d174bb1763153636d7b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8b0438f547cd84a8c7631ec61eca83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cat: {fileID: 8742862892977112046}
   cookieManager: {fileID: 1763300009}
+  weatherButton: {fileID: 8268920291829653062}
+  stickyNotesButton: {fileID: 8169953108710491193}
 --- !u!224 &254991208842261749 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1474247118843382533, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
@@ -1293,6 +1294,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2787679007131302291, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
   m_PrefabInstance: {fileID: 1728391420071280624}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8169953108710491193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7394342992081320905, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
+  m_PrefabInstance: {fileID: 1728391420071280624}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d9b0dd2434fcc42878454c63832f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8268920291829653062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7295094616387805622, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
+  m_PrefabInstance: {fileID: 1728391420071280624}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53519bc2ed6ba3540af6d5df427aea00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8742862892977112046 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7973792106117741598, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}

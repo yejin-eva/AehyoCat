@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,14 @@ using UnityEngine;
 public class Cat : MonoBehaviour
 {
     public float Health => hp;
+    public Action OnCatIsHungry;
+    public Action OnCatIsFull;
 
     [SerializeField] private UnityEngine.UI.Image progressBarFill;
 
     private float hp = 0f;
     private float maxHp = 100.0f;
-    private float healthDecreaseAmount = 2f;
+    private float healthDecreaseAmount = 10f;
 
     private void Awake()
     {
@@ -22,6 +25,16 @@ public class Cat : MonoBehaviour
         if (hp <= 0)
         {
             Debug.Log("Cat is dead!");
+        }
+        else if (hp <= 50)
+        {
+            OnCatIsHungry?.Invoke();
+            Debug.Log("Cat is hungry");
+        }
+        else
+        {
+             Debug.Log("Cat is full");
+             OnCatIsFull?.Invoke();
         }
 
         SubtractHealth(Time.deltaTime * healthDecreaseAmount);

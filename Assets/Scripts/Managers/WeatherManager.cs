@@ -47,6 +47,8 @@ public class WeatherManager : MonoBehaviour
 
     private async Task UpdateWeatherInformation(System.Action onComplete)
     {
+        weatherDisplay.SetWeatherDescriptionText("Loading weather...");
+
         WeatherData weatherData = await WeatherAPIHelper.GetWeatherData();
         string weatherDescription = weatherData.weather[0].description;
         float weatherCode = weatherData.weather[0].id;
