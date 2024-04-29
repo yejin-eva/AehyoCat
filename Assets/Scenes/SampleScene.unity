@@ -250,6 +250,7 @@ MonoBehaviour:
   stickyNote: {fileID: 4373229824138340501, guid: 6304a73ebd46e50439610b6b0d12fa0b, type: 3}
   enabledStickyNotes: {fileID: 1745991193}
   stickyNotesSO: {fileID: 11400000, guid: 2dca5c8dae730b74f8481aff3bc64622, type: 2}
+  stickyNotesButton: {fileID: 8169953108710491193}
 --- !u!1 &416798802
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +870,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585467130}
   m_CullTransparentMesh: 1
+--- !u!114 &1685744142 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8523192436552971759, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
+  m_PrefabInstance: {fileID: 1728391420071280624}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fba56953e391f4fad33f2863059d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1745991192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,11 +1191,23 @@ MonoBehaviour:
   cookieManager: {fileID: 1763300009}
   weatherButton: {fileID: 8268920291829653062}
   stickyNotesButton: {fileID: 8169953108710491193}
+  sadCatButton: {fileID: 1685744142}
 --- !u!224 &254991208842261749 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1474247118843382533, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
   m_PrefabInstance: {fileID: 1728391420071280624}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &971449011015277637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1911564102264038325, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
+  m_PrefabInstance: {fileID: 1728391420071280624}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1728391420071280624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1284,6 +1308,10 @@ PrefabInstance:
       propertyPath: stickyNotesManager
       value: 
       objectReference: {fileID: 249788160}
+    - target: {fileID: 8523192436552971759, guid: 6e3743d5ddf94b4408dca9577a9c3085, type: 3}
+      propertyPath: quotesText
+      value: 
+      objectReference: {fileID: 971449011015277637}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

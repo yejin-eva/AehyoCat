@@ -26,7 +26,7 @@ public class StickyNotesButton : MonoBehaviour
     }
     public void OnStickyNotesButtonClicked()
     {
-        stickyNotesManager.SetOpenStatus(!stickyNotesManager.IsEnabledStickyNotesOpen);
+        stickyNoteButtonClicked?.Invoke();
     }
 
     

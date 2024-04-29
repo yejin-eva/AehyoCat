@@ -10,6 +10,7 @@ public class WidgetManager : MonoBehaviour
 
     [SerializeField] private WeatherButton weatherButton;
     [SerializeField] private StickyNotesButton stickyNotesButton;
+    [SerializeField] private SadCatButton sadCatButton;
 
     private void OnEnable()
     {
@@ -26,6 +27,7 @@ public class WidgetManager : MonoBehaviour
     private void OnCatIsHungry()
     {
         ActivateButtons(false);
+        sadCatButton.gameObject.SetActive(true);
     }
 
     private void ActivateButtons(bool status)

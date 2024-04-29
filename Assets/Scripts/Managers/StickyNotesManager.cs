@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StickyNotesManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class StickyNotesManager : MonoBehaviour
     [SerializeField] GameObject stickyNote;
     [SerializeField] Transform enabledStickyNotes;
     [SerializeField] private StickyNotesSO stickyNotesSO;
+    [SerializeField] private StickyNotesButton stickyNotesButton;
 
     private bool isEnabledStickyNotesOpen = false;
     private void Awake()
@@ -15,11 +17,24 @@ public class StickyNotesManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        stickyNotesButton.stickyNoteButtonClicked += OnStickyNotesButtonClicked;
+
         LoadSavedStickyNote();
         if (enabledStickyNotes.childCount == 0)
         {
             CreateStickyNote();
         }
+    }
+
+    private void OnDisable()
+    {
+        stickyNotesButton.stickyNoteButtonClicked -= OnStickyNotesButtonClicked;
+        SaveStickyNote();
+    }
+
+    private void OnStickyNotesButtonClicked()
+    {
+        SetOpenStatus(!IsEnabledStickyNotesOpen);
     }
     private void LoadSavedStickyNote()
     {
@@ -90,9 +105,6 @@ public class StickyNotesManager : MonoBehaviour
 
     }
 
-    private void OnDestroy()
-    {
-        SaveStickyNote();
-    }
+    
 
 }
