@@ -26,7 +26,6 @@ public class Cat : MonoBehaviour
         SubtractHealth(Time.deltaTime * healthDecreaseAmount);
     }
 
-
     private void CheckHp()
     {
         if (hp <= 0)

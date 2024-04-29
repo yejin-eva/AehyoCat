@@ -11,11 +11,22 @@ public static class WeatherAPIHelper
     static readonly string apiKey = "e17ce596ed8f254331cf07a3ca5ea190";
     static int cancelTime = 3000; // Milliseconds
 
+    static float latitude = 37.568291f;
+    static float longitude = 126.997780f;
+
+    public static float Latitude
+    {
+        get => latitude;
+        set => latitude = value;
+    }
+    public static float Longitude
+    {
+        get => longitude;
+        set => longitude = value;
+    }
+
     public static async UniTask<WeatherData> GetWeatherData()
     {
-        float latitude = 37.568291f;
-        float longitude = 126.997780f;
-
         using (CancellationTokenSource cts = new CancellationTokenSource(cancelTime))
         {
             var request = UnityWebRequest.Get($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
