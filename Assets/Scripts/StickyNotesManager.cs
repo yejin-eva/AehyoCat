@@ -6,6 +6,7 @@ public class StickyNotesManager : MonoBehaviour
 
     [SerializeField] GameObject stickyNote;
     [SerializeField] Transform enabledStickyNotes;
+    [SerializeField] private StickyNotesSO stickyNotesSO;
 
     private bool isEnabledStickyNotesOpen = false;
     private void Awake()
@@ -14,13 +15,45 @@ public class StickyNotesManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        LoadSavedStickyNote();
         if (enabledStickyNotes.childCount == 0)
         {
             CreateStickyNote();
         }
     }
+    private void LoadSavedStickyNote()
+    {
+        foreach(var savedNote in stickyNotesSO.stickyNotes)
+        {
+            GameObject newStickyNote = CreateStickyNote();
+            StickyNote stickyNoteComponent = newStickyNote.GetComponent<StickyNote>();
+            
+            stickyNoteComponent.SetContent(savedNote.stickyNoteContent);
+            newStickyNote.transform.position = savedNote.position;
 
-    private void CreateStickyNote()
+            newStickyNote.SetActive(true);
+        }
+    }
+    private void SaveStickyNote()
+    {
+        stickyNotesSO.stickyNotes.Clear();
+
+        for(int i = 0; i < enabledStickyNotes.childCount; i++)
+        {
+            StickyNote stickyNote = enabledStickyNotes.GetChild(i).GetComponent<StickyNote>();
+            if (stickyNote != null)
+            {
+                StickyNoteEntry entry = new StickyNoteEntry()
+                {
+                    stickyNoteContent = stickyNote.NoteContent,
+                    position = stickyNote.transform.position,
+                };
+                stickyNotesSO.stickyNotes.Add(entry);
+            }
+
+        }
+    }
+    private GameObject CreateStickyNote()
     {
         GameObject newStickyNote = Instantiate(stickyNote, enabledStickyNotes);
         StickyNote stickyNoteComponent = newStickyNote.GetComponent<StickyNote>();
@@ -29,6 +62,8 @@ public class StickyNotesManager : MonoBehaviour
         stickyNoteComponent.onAddStickyNote += OnAddStickyNote;
 
         newStickyNote.SetActive(true);
+
+        return newStickyNote;
 
     }
 
@@ -53,6 +88,12 @@ public class StickyNotesManager : MonoBehaviour
     {
         this.isEnabledStickyNotesOpen = isOpen;
         enabledStickyNotes.gameObject.SetActive(isOpen);
+
+    }
+
+    private void OnDestroy()
+    {
+        SaveStickyNote();
     }
 
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: StickyNotesSO
   m_EditorClassIdentifier: 
   stickyNotes:
-  - {fileID: 0}
+  - stickyNote: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}

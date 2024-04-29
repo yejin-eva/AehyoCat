@@ -358,6 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickyNote: {fileID: 4373229824138340501, guid: 6304a73ebd46e50439610b6b0d12fa0b, type: 3}
   enabledStickyNotes: {fileID: 1745991193}
+  stickyNotesSO: {fileID: 11400000, guid: 2dca5c8dae730b74f8481aff3bc64622, type: 2}
 --- !u!1 &416798802
 GameObject:
   m_ObjectHideFlags: 0

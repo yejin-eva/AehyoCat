@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StickyNote : MonoBehaviour
 {
     public Action<StickyNote> onDeletedStickyNote;
     public Action<StickyNote> onAddStickyNote;
+    public string NoteContent => noteContent;
     
     [SerializeField] ClearButton clearButton;
     [SerializeField] DeleteButton deleteButton;
@@ -26,6 +28,12 @@ public class StickyNote : MonoBehaviour
         addButton.addStickyNote += OnAddStickyNote;
     }
 
+    public void SetContent(string content)
+    {
+        noteContent = content;
+        inputField.text = noteContent;
+    }
+
     private void OnAddStickyNote()
     {
         onAddStickyNote?.Invoke(this);
@@ -38,7 +46,7 @@ public class StickyNote : MonoBehaviour
 
     private void OnClearedStickyNote()
     {
-        inputField.text = "";
+        SetContent("");
     }
 
     private void OnDisable()
