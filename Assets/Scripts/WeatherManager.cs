@@ -17,7 +17,9 @@ public class WeatherManager : MonoBehaviour
     private void OnEnable()
     {
         weatherDisplay.OnOpenedWeatherDisplay += OnWeatherDisplayOpened;
+        WeatherAPIHelper.OnTimeOut += OnWeatherInformationRequestTimeOut;
     }
+
     private void Update()
     {
         UpdateTimer();
@@ -33,7 +35,8 @@ public class WeatherManager : MonoBehaviour
         if (timer >= updateInterval)
         {
             timer = 0f;
-            StartCoroutine(UpdateWeatherDescriptionWithTimeout());
+            
+            _ = UpdateWeatherInformation(() => { });
         }
         else
         {
@@ -43,27 +46,6 @@ public class WeatherManager : MonoBehaviour
         
     }
 
-    private IEnumerator UpdateWeatherDescriptionWithTimeout()
-    {
-        weatherDisplay.SetWeatherDescriptionText("Loading weather data...");
-        weatherDisplay.SetWeatherImageByCode(0);
-
-        bool completed = false;
-
-        _ = UpdateWeatherInformation(() => completed = true);
-
-        float startTime = Time.time;
-        while (!completed && Time.time - startTime < timeoutSeconds)
-        {
-            yield return null;
-        }
-        if (!completed)
-        {
-            weatherDisplay.SetWeatherDescriptionText("Failed to get weather data");
-            Debug.LogWarning("Failed to fetch weather description in time, using default.");
-        }
-    
-    }
     private async Task UpdateWeatherInformation(System.Action onComplete)
     {
         WeatherData weatherData = await WeatherAPIHelper.GetWeatherData();
@@ -77,5 +59,11 @@ public class WeatherManager : MonoBehaviour
         previousWeatherDescription = weatherDescription;
 
         onComplete?.Invoke();
+    }
+
+    private void OnWeatherInformationRequestTimeOut()
+    {
+        weatherDisplay.SetWeatherDescriptionText("Failed to get weather data");
+        Debug.LogWarning("Failed to fetch weather description in time, using default.");
     }
 }
