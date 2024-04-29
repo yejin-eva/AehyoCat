@@ -8,20 +8,30 @@ public class WidgetManager : MonoBehaviour
     [SerializeField] private Cat cat;
     [SerializeField] private CookieManager cookieManager;
 
+    [SerializeField] private QuoteBubble quoteBubble;
     [SerializeField] private WeatherButton weatherButton;
     [SerializeField] private StickyNotesButton stickyNotesButton;
     [SerializeField] private SadCatButton sadCatButton;
 
     private void OnEnable()
     {
-        cookieManager.OnAteCookie += OnCatAteCookie;
+        cookieManager.OnAteCookie += OnAteCookie;
         cat.OnCatIsHungry += OnCatIsHungry;
         cat.OnCatIsFull += OnCatIsFull;
+        cat.OnNotifyHunger += OnNotifyHunger;
+        sadCatButton.OnSadCatButton += SetHungerMessage;
+    }
+
+    private void OnNotifyHunger()
+    {
+        quoteBubble.gameObject.SetActive(true);
+        quoteBubble.SetQuoteText("I'm getting hungry!!");
     }
 
     private void OnCatIsFull()
     {
         ActivateButtons(true);
+        sadCatButton.gameObject.SetActive(false);
     }
 
     private void OnCatIsHungry()
@@ -36,8 +46,14 @@ public class WidgetManager : MonoBehaviour
         stickyNotesButton.gameObject.SetActive(status);
     }
 
-    private void OnCatAteCookie()
+    private void OnAteCookie()
     {
         cat.AddHealth(10f);
+    }
+
+    private void SetHungerMessage()
+    {
+        quoteBubble.gameObject.SetActive(true);
+        quoteBubble.SetQuoteText("I'm too hungry for work. Feed me!");
     }
 }

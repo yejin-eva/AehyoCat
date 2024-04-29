@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuoteBubble : MonoBehaviour
@@ -18,22 +16,36 @@ public class QuoteBubble : MonoBehaviour
     }
     private void OnEnable()
     {
+        OpenQuoteBubble();
+    }
+
+    private void OpenQuoteBubble()
+    {
         UpdateQuoteText();
         transform.DOScale(originalLocalScale, 0.3f).From(originalLocalScale * 0.5f).SetEase(Ease.OutBack);
     }
-    
-    private void UpdateQuoteText()
+    public void SetQuoteText(string message)
     {
-        int index;
-        do
+        UpdateQuoteText(message);
+    }
+    private void UpdateQuoteText(string message = "")
+    {
+        if (message != "")
         {
-            index = UnityEngine.Random.Range(0, quotes.quotes.Length);
+            quotesText.text = message;
         }
-        while (index == lastIndex && quotes.quotes.Length > 1);
-        quotesText.text = quotes.quotes[index];
+        else
+        {
+            int index;
+            do
+            {
+                index = UnityEngine.Random.Range(0, quotes.quotes.Length);
+            }
+            while (index == lastIndex && quotes.quotes.Length > 1);
+            quotesText.text = quotes.quotes[index];
 
-        lastIndex = index;
-
+            lastIndex = index;
+        }
         Invoke(nameof(HideQuoteBubble), 2f);
     }
 

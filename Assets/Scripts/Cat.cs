@@ -8,12 +8,17 @@ public class Cat : MonoBehaviour
     public float Health => hp;
     public Action OnCatIsHungry;
     public Action OnCatIsFull;
+    public Action OnNotifyHunger;
 
     [SerializeField] private UnityEngine.UI.Image progressBarFill;
 
     private float hp = 0f;
     private float maxHp = 100.0f;
-    private float healthDecreaseAmount = 10f;
+    private float healthDecreaseAmount = 2f;
+    private float hungerNotificationInterval = 2f;
+    private float timer = Mathf.Infinity;
+    private bool isDeadNotified = false;
+    private bool isHungryNotified = false;
 
     private void Awake()
     {
@@ -22,23 +27,52 @@ public class Cat : MonoBehaviour
     }
     private void Update()
     {
+        CheckHp();
+        SubtractHealth(Time.deltaTime * healthDecreaseAmount);
+        UpdateTimer();
+    }
+
+    private void UpdateTimer()
+    {
+        timer += Time.deltaTime;
+    }
+
+    private void CheckHp()
+    {
         if (hp <= 0)
         {
-            Debug.Log("Cat is dead!");
+            if (!isDeadNotified)
+            {
+                isDeadNotified = true;
+                isHungryNotified = false;
+            }
+        }
+        else if (hp <= 30)
+        {
+            if (!isHungryNotified)
+            {
+                OnCatIsHungry?.Invoke();
+                isHungryNotified = true;
+                isDeadNotified = false;
+            }
         }
         else if (hp <= 50)
         {
-            OnCatIsHungry?.Invoke();
-            Debug.Log("Cat is hungry");
+            if (timer >= hungerNotificationInterval)
+            {
+                OnNotifyHunger?.Invoke();
+                timer = 0f;
+            }
         }
         else
         {
-             Debug.Log("Cat is full");
-             OnCatIsFull?.Invoke();
+            if (isHungryNotified || isDeadNotified)
+            {
+                OnCatIsFull?.Invoke();
+                isHungryNotified = false;
+                isDeadNotified = false;
+            }
         }
-
-        SubtractHealth(Time.deltaTime * healthDecreaseAmount);
-        
     }
 
     public void SetHealth(float health)
@@ -57,7 +91,10 @@ public class Cat : MonoBehaviour
         hp = Mathf.Min(hp + health, maxHp);
         FillHealthBar();
     }
+    private void NotifyHunger()
+    {
 
+    }
     private void FillHealthBar()
     {
         progressBarFill.fillAmount = (float) hp / maxHp;
