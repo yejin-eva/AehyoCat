@@ -13,6 +13,12 @@ public class StickyNote : MonoBehaviour
     [SerializeField] AddButton addButton;
     [SerializeField] TMPro.TMP_InputField inputField;
 
+    private string noteContent = "";
+
+    private void OnEnable()
+    {
+        inputField.text = noteContent;
+    }
     private void Start()
     {
         clearButton.clearStickyNote += OnClearedStickyNote;
@@ -33,6 +39,11 @@ public class StickyNote : MonoBehaviour
     private void OnClearedStickyNote()
     {
         inputField.text = "";
+    }
+
+    private void OnDisable()
+    {
+        noteContent = inputField.text;
     }
 
     private void OnDestroy()
