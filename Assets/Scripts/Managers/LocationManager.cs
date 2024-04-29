@@ -6,59 +6,34 @@ using UnityEngine.Networking;
 
 public class LocationManager : MonoBehaviour
 {
-    private string IPAddress;
-    Action OnSuccess;
+    private readonly string apiKey = "dc7fd16fb7de4de8bcc7354bd7a156b8";
     private async void Start()
     {
-        //StartCoroutine(GetCoordinates());
-        bool succeededIPFetch = false;
-        UnityWebRequest request = await GetIP(() => succeededIPFetch = true);
-        if (succeededIPFetch)
+        bool succeededRequest = false;
+        UnityWebRequest request = await GetCoordinates(() => succeededRequest = true);
+
+        if (!succeededRequest)
         {
-            IPAddress = request.downloadHandler.text;
-            Debug.Log(IPAddress);
-
-            var request2 = await GetCoordinates();
+            Debug.LogError("no coordinates received");
         }
-        else
-        {
-            Debug.LogError("no IP address received");
-        }
-
-
-
     }
 
-    private static async UniTask<UnityWebRequest> GetIP(Action onSuccess)
+    private async UniTask<UnityWebRequest> GetCoordinates(Action onSuccess)
     {
-        var request = UnityWebRequest.Get("https://api.ipify.org/");
+        var request = UnityWebRequest.Get($"https://api.ipgeolocation.io/ipgeo?apiKey={apiKey}");
         await request.SendWebRequest();
+
 
         if (request.result == UnityWebRequest.Result.Success)
         {
+            GeoLocationData geoLocationData = JsonUtility.FromJson<GeoLocationData>(request.downloadHandler.text);
+            Debug.Log(geoLocationData.city);
+            Debug.Log(geoLocationData.ip);
+
+            WeatherAPIHelper.Latitude = geoLocationData.latitude;
+            WeatherAPIHelper.Longitude = geoLocationData.longitude;
+
             onSuccess?.Invoke();
-            return request;
-        }
-        else
-        {
-            Debug.LogError($"Error: {request.error}");
-        }
-        return null;
-    }
-    private async UniTask<UnityWebRequest> GetCoordinates()
-    {
-        var request = UnityWebRequest.Get($"https://ipapi.co/json/");
-        await request.SendWebRequest();
-
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            LocationInfo locationInfo = JsonUtility.FromJson<LocationInfo>(request.downloadHandler.text);
-            Debug.Log(locationInfo.city);
-            Debug.Log(locationInfo.ip);
-
-            WeatherAPIHelper.Latitude = locationInfo.latitude;
-            WeatherAPIHelper.Longitude = locationInfo.longitude;
 
             return request;
         }
@@ -69,27 +44,57 @@ public class LocationManager : MonoBehaviour
 
         return null;
     }
-    
+
+}
+
+
+[Serializable]
+public class GeoLocationData
+{
+    public string ip;
+    public string hostname;
+    public string continent_code;
+    public string continent_name;
+    public string country_code2;
+    public string country_code3;
+    public string country_name;
+    public string country_capital;
+    public string state_prov;
+    public string district;
+    public string city;
+    public string zipcode;
+    public float latitude;
+    public float longitude;
+    public bool is_eu;
+    public string calling_code;
+    public string country_tld;
+    public string languages;
+    public string country_flag;
+    public string geoname_id;
+    public string isp;
+    public string connection_type;
+    public string organization;
+    public string asn;
+    public Currency currency;
+    public TimeZoneInfo time_zone;
 }
 
 [Serializable]
-public class LocationInfo
+public class Currency
 {
-    public string ip;
-    public string city;
-    public string region;
-    public string region_code;
-    public string country;
-    public string country_name;
-    public string continent_code;
-    public bool in_eu;
-    public float latitude;
-    public float longitude;
-    public string timezone;
-    public string utc_offset;
-    public string country_calling_code;
-    public string currency;
-    public string languages;
-    public string asn;
-    public string org;
+    public string code;
+    public string name;
+    public string symbol;
 }
+
+[Serializable]
+public class TimeZoneInfo
+{
+    public string name;
+    public int offset;
+    public string current_time;
+    public double current_time_unix;
+    public bool is_dst;
+    public int dst_savings;
+}
+
