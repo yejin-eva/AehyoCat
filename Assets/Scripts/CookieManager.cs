@@ -1,8 +1,10 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class CookieManager : MonoBehaviour
 {
+    public Action OnAteCookie;
     
     [SerializeField] private GameObject cookiePrefab;
     [SerializeField] private RectTransform canvasRect;
@@ -17,7 +19,7 @@ public class CookieManager : MonoBehaviour
         if (timer >= cookieSpawnTime)
         {
             timer = 0f;
-            cookieSpawnTime = Random.Range(3f, 10f);
+            cookieSpawnTime = UnityEngine.Random.Range(3f, 10f);
             SpawnCookie();
         }
     }
@@ -43,8 +45,8 @@ public class CookieManager : MonoBehaviour
     private void EatCookie(DragComponent cookieComponent)
     {
         cookieComponent.transform.DOScale(transform.localScale * 0.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(cookieComponent.gameObject));
-        Debug.Log("Cat ate the cookie!");
-
+        
+        OnAteCookie?.Invoke();
     }
 
     private void SpawnAtRandomPosition(GameObject cookie)

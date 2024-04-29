@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b5b05dead27f741a9f2764c8a1b91f, type: 3}
   m_Name: StickyNotesSO
   m_EditorClassIdentifier: 
-  stickyNotes:
-  - stickyNote: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
+  stickyNotes: []

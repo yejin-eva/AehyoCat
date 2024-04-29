@@ -4,15 +4,48 @@ using UnityEngine;
 
 public class Cat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float Health => hp;
+
+    [SerializeField] private UnityEngine.UI.Image progressBarFill;
+
+    private float hp = 0f;
+    private float maxHp = 100.0f;
+
+    private void Awake()
     {
+        hp = maxHp;
+        progressBarFill.fillAmount = 1f;
+    }
+    private void Update()
+    {
+        if (hp <= 0)
+        {
+            Debug.Log("Cat is dead!");
+        }
+
+        SubtractHealth(Time.deltaTime * 5f);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetHealth(float health)
     {
-        
+        hp = Mathf.Min(health, maxHp);
+        FillHealthBar();
+    }
+
+    public void SubtractHealth(float health)
+    {
+        hp = Mathf.Max(hp - health, 0f);
+        FillHealthBar();
+    }
+    public void AddHealth(float health)
+    {
+        hp = Mathf.Min(hp + health, maxHp);
+        FillHealthBar();
+    }
+
+    private void FillHealthBar()
+    {
+        progressBarFill.fillAmount = (float) hp / maxHp;
     }
 }

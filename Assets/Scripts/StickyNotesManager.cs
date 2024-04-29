@@ -78,7 +78,6 @@ public class StickyNotesManager : MonoBehaviour
         note.onAddStickyNote -= OnAddStickyNote;
 
         Destroy(note.gameObject);
-        Debug.Log(enabledStickyNotes.childCount);
         if (enabledStickyNotes.childCount == 1)
         {
             SetOpenStatus(false);
