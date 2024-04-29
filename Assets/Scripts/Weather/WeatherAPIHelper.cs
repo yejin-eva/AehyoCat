@@ -11,7 +11,7 @@ public static class WeatherAPIHelper
     public static Action OnTimeOut;
     static readonly string apiKey = "e17ce596ed8f254331cf07a3ca5ea190";
 
-    static int cancelTime = 3000;
+    static int cancelTime = 3000; //milliseconds
 
     public static async Task<WeatherData> GetWeatherData()
     {
