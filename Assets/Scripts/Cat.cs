@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cat : MonoBehaviour
@@ -13,7 +11,7 @@ public class Cat : MonoBehaviour
 
     private float hp = 0f;
     private float maxHp = 100.0f;
-    private float healthDecreaseAmount = 10f;
+    private float healthDecreaseAmount = 2f;
     private bool isDeadNotified = false;
     private bool isHungryNotified = false;
 
