@@ -1,5 +1,4 @@
 using System.Net;
-using System.IO;
 using UnityEngine;
 using Cysharp.Threading.Tasks; 
 using System.Threading;
@@ -19,19 +18,21 @@ public static class WeatherAPIHelper
 
         using (CancellationTokenSource cts = new CancellationTokenSource(cancelTime))
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
+            var request = UnityWebRequest.Get($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
             try
             {
-                // Start the asynchronous operation
-                using (WebResponse response = await request.GetResponseAsync().AsUniTask().AttachExternalCancellation(cts.Token))
+                // UnityWebRequest 방식
+                await request.SendWebRequest().WithCancellation(cts.Token);
+
+                // 요청이 성공적이면
+                if (request.result == UnityWebRequest.Result.Success)
                 {
-                    using (Stream stream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        string jsonResponse = await reader.ReadToEndAsync();
-                        Debug.Log(jsonResponse);
-                        return JsonUtility.FromJson<WeatherData>(jsonResponse);
-                    }
+                    return JsonUtility.FromJson<WeatherData>(request.downloadHandler.text);
+                }
+                // 요청이 실패하면
+                else
+                {
+                    Debug.LogError($"Error: {request.error}");
                 }
             }
             catch (OperationCanceledException)

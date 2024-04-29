@@ -10,6 +10,7 @@ public class Cat : MonoBehaviour
 
     private float hp = 0f;
     private float maxHp = 100.0f;
+    private float healthDecreaseAmount = 2f;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class Cat : MonoBehaviour
             Debug.Log("Cat is dead!");
         }
 
-        SubtractHealth(Time.deltaTime * 5f);
+        SubtractHealth(Time.deltaTime * healthDecreaseAmount);
         
     }
 
