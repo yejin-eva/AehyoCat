@@ -35,7 +35,7 @@ public class WeatherDisplay : MonoBehaviour
     {
         if (weatherCode < 200)
         {
-            Debug.LogWarning("no weather display available");
+            SetWeatherImage(defaultWeather);
         }
         else if (weatherCode < 300) //thunderstorm
         {

@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class StickyNotesManager : MonoBehaviour
 {
-    public bool IsOpen => isOpen;
+    public bool IsEnabledStickyNotesOpen => isEnabledStickyNotesOpen;
 
     [SerializeField] GameObject stickyNote;
     [SerializeField] Transform enabledStickyNotes;
 
-    private bool isOpen = false;
+    private bool isEnabledStickyNotesOpen = false;
     private void Awake()
     {
-        SetOpenStatus(isOpen);
+        SetOpenStatus(isEnabledStickyNotesOpen);
     }
     private void OnEnable()
     {
@@ -51,8 +51,8 @@ public class StickyNotesManager : MonoBehaviour
     }
     public void SetOpenStatus(bool isOpen)
     {
-        this.isOpen = isOpen;
-        gameObject.SetActive(isOpen);
+        this.isEnabledStickyNotesOpen = isOpen;
+        enabledStickyNotes.gameObject.SetActive(isOpen);
     }
 
 }

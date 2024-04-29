@@ -46,6 +46,7 @@ public class WeatherManager : MonoBehaviour
     private IEnumerator UpdateWeatherDescriptionWithTimeout()
     {
         weatherDisplay.SetWeatherDescriptionText("Loading weather data...");
+        weatherDisplay.SetWeatherImageByCode(0);
 
         bool completed = false;
 
@@ -59,7 +60,7 @@ public class WeatherManager : MonoBehaviour
         if (!completed)
         {
             weatherDisplay.SetWeatherDescriptionText("Failed to get weather data");
-            Debug.Log("Failed to fetch weather description in time, using default.");
+            Debug.LogWarning("Failed to fetch weather description in time, using default.");
         }
     
     }

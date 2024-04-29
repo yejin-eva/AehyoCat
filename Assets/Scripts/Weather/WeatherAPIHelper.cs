@@ -10,6 +10,7 @@ public static class WeatherAPIHelper
     {
         float latitude = 37.568291f;
         float longitude = 126.997780f;
+
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
         using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
         {
