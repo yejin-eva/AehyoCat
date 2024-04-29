@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 public static class WeatherAPIHelper
 {
     public static Action OnTimeOut;
-    static readonly string apiKey = "e17ce596ed8f254331cf07a3ca5ea190";
     static int cancelTime = 3000; // Milliseconds
 
     static float latitude = 37.568291f;
@@ -29,7 +28,7 @@ public static class WeatherAPIHelper
     {
         using (CancellationTokenSource cts = new CancellationTokenSource(cancelTime))
         {
-            var request = UnityWebRequest.Get($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}");
+            var request = UnityWebRequest.Get($"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={ApiKeys.weatherApiKey}");
             try
             {
                 // UnityWebRequest ¹æ½Ä

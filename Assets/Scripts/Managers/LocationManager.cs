@@ -6,11 +6,10 @@ using UnityEngine.Networking;
 
 public class LocationManager : MonoBehaviour
 {
-    private readonly string apiKey = "dc7fd16fb7de4de8bcc7354bd7a156b8";
     private async void Start()
     {
         bool succeededRequest = false;
-        UnityWebRequest request = await GetCoordinates(() => succeededRequest = true);
+        UnityWebRequest request = await SetCoordinates(() => succeededRequest = true);
 
         if (!succeededRequest)
         {
@@ -18,9 +17,9 @@ public class LocationManager : MonoBehaviour
         }
     }
 
-    private async UniTask<UnityWebRequest> GetCoordinates(Action onSuccess)
+    private async UniTask<UnityWebRequest> SetCoordinates(Action onSuccess)
     {
-        var request = UnityWebRequest.Get($"https://api.ipgeolocation.io/ipgeo?apiKey={apiKey}");
+        var request = UnityWebRequest.Get($"https://api.ipgeolocation.io/ipgeo?apiKey={ApiKeys.locationApiKey}");
         await request.SendWebRequest();
 
 
