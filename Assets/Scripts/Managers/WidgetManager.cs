@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WidgetManager : MonoBehaviour
@@ -12,15 +10,37 @@ public class WidgetManager : MonoBehaviour
     [SerializeField] private WeatherButton weatherButton;
     [SerializeField] private StickyNotesButton stickyNotesButton;
     [SerializeField] private SadCatButton sadCatButton;
+    [SerializeField] private CatNameButton catNameButton;
+    [SerializeField] private SaveNameButton saveNameButton;
+    [SerializeField] private GameObject catNamePopup;
 
-    private void OnEnable()
+    private void Start()
     {
         cookieManager.OnAteCookie += OnAteCookie;
         cat.OnCatIsHungry += OnCatIsHungry;
         cat.OnCatIsFull += OnCatIsFull;
         sadCatButton.OnSadCatButton += SetHungerMessage;
+        catNameButton.onCatNameButtonClicked += OnCatNameButtonClicked;
+        saveNameButton.onSaveNameButtonClicked += OnSaveNameButtonClicked;
     }
 
+    private void OnSaveNameButtonClicked()
+    {
+        cat.CatName = saveNameButton.GetCatName();
+        catNameButton.SetCatName(cat.CatName);
+        catNamePopup.SetActive(false);
+
+        Debug.Log(cat.CatName);
+    }
+
+    private void OnCatNameButtonClicked()
+    {
+        Debug.Log("cat name clicked");
+        if (!catNamePopup.activeSelf)
+        {
+            catNamePopup.SetActive(true);
+        }
+    }
 
     private void OnCatIsFull()
     {

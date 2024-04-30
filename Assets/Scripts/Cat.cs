@@ -4,6 +4,7 @@ using UnityEngine;
 public class Cat : MonoBehaviour
 {
     public float Health => hp;
+    public string CatName { get => catName; set => catName = value;}
     public Action OnCatIsHungry;
     public Action OnCatIsFull;
 
@@ -14,6 +15,7 @@ public class Cat : MonoBehaviour
     private float healthDecreaseAmount = 2f;
     private bool isDeadNotified = false;
     private bool isHungryNotified = false;
+    private string catName = "Aehyo";
 
     private void Awake()
     {
