@@ -9,6 +9,8 @@ public class VivoxLoginUI : MonoBehaviour
     [SerializeField] private Cat cat;
     [SerializeField] private UnityEngine.UI.Button loginButton;
     [SerializeField] private GameObject LoginScreen;
+    [SerializeField] private GameObject loginStatus;
+    [SerializeField] private TMPro.TextMeshProUGUI loginStatusText;
 
     private EventSystem eventSystem => FindObjectOfType<EventSystem>();
     private int permissionAskedCount;
@@ -24,7 +26,7 @@ public class VivoxLoginUI : MonoBehaviour
 
         loginButton.onClick.AddListener(() => { LoginToVivoxService(); });
 
-        OnUserLoggedOut();
+        OnUserLoggedIn();
     }
 
     private void OnDestroy()
@@ -76,6 +78,9 @@ public class VivoxLoginUI : MonoBehaviour
 
     private async void LoginToVivox()
     {
+        loginStatus.SetActive(true);
+        loginStatusText.text = "Logging in...";
+
         loginButton.interactable = false;
 
         await VivoxManager.Instance.InitializeAsync(cat.CatName);
@@ -84,7 +89,17 @@ public class VivoxLoginUI : MonoBehaviour
             DisplayName = cat.CatName,
             ParticipantUpdateFrequency = ParticipantPropertyUpdateFrequency.FivePerSecond
         };
-        await VivoxService.Instance.LoginAsync(loginOptions);
+
+        try
+        {
+            await VivoxService.Instance.LoginAsync(loginOptions);
+            loginStatusText.text = "";
+        }
+        catch (Exception e)
+        {
+            loginStatusText.text = "Login failed";
+            Debug.LogError(e);
+        }
     }
 
     private void ShowLoginUI()
@@ -95,6 +110,7 @@ public class VivoxLoginUI : MonoBehaviour
     private void HideLoginUI()
     {
         LoginScreen.SetActive(false);
+        loginStatus.SetActive(false);
     }
 
     private void OnUserLoggedOut()
