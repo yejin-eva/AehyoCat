@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class VivoxTextChatUI : MonoBehaviour
 {
-
     [SerializeField] private GameObject chatContent;
     [SerializeField] private GameObject messageObject;
     [SerializeField] private Button enterButton;

@@ -8,6 +8,7 @@ public class VivoxLoginUI : MonoBehaviour
 {
     [SerializeField] private Cat cat;
     [SerializeField] private UnityEngine.UI.Button loginButton;
+    [SerializeField] private UnityEngine.UI.Button exitLoginButton;
     [SerializeField] private GameObject LoginScreen;
     [SerializeField] private GameObject loginStatus;
     [SerializeField] private TMPro.TextMeshProUGUI loginStatusText;
@@ -25,7 +26,13 @@ public class VivoxLoginUI : MonoBehaviour
 #endif
 
         loginButton.onClick.AddListener(() => { LoginToVivoxService(); });
+        exitLoginButton.onClick.AddListener(() => OnExitButtonClicked());
 
+        OnUserLoggedIn();
+    }
+
+    private void OnExitButtonClicked()
+    {
         OnUserLoggedIn();
     }
 
