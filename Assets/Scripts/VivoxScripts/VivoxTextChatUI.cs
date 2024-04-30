@@ -92,9 +92,6 @@ public class VivoxTextChatUI : MonoBehaviour
 
         textChatScrollRect.onValueChanged.RemoveAllListeners();
     }
-    
-
-    
 
     private void ClearMessageObjectPool()
     {

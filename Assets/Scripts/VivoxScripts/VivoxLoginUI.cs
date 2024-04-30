@@ -86,7 +86,7 @@ public class VivoxLoginUI : MonoBehaviour
         await VivoxManager.Instance.InitializeAsync(cat.CatName);
         var loginOptions = new LoginOptions() 
         { 
-            DisplayName = cat.CatName,
+            DisplayName = $"{cat.CatName}'s owner",
             ParticipantUpdateFrequency = ParticipantPropertyUpdateFrequency.FivePerSecond
         };
 
@@ -113,7 +113,7 @@ public class VivoxLoginUI : MonoBehaviour
         loginStatus.SetActive(false);
     }
 
-    private void OnUserLoggedOut()
+    public void OnUserLoggedOut()
     {
         ShowLoginUI();
     }

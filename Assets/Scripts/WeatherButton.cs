@@ -4,11 +4,11 @@ public class WeatherButton : MonoBehaviour
 {
     [SerializeField] private WeatherDisplay weatherDisplay;
 
-    private void OnEnable()
+    private void Start()
     {
         GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnWeatherButtonClicked());
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
     }

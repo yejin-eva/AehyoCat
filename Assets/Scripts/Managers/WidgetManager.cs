@@ -12,7 +12,9 @@ public class WidgetManager : MonoBehaviour
     [SerializeField] private SadCatButton sadCatButton;
     [SerializeField] private CatNameButton catNameButton;
     [SerializeField] private SaveNameButton saveNameButton;
+    [SerializeField] private ChatButton chatButton;
     [SerializeField] private GameObject catNamePopup;
+    [SerializeField] private VivoxLoginUI vivoxLoginUI;
     private void OnEnable()
     {
         catNamePopup.SetActive(false);
@@ -23,8 +25,14 @@ public class WidgetManager : MonoBehaviour
         cat.OnCatIsHungry += OnCatIsHungry;
         cat.OnCatIsFull += OnCatIsFull;
         sadCatButton.OnSadCatButton += SetHungerMessage;
+        chatButton.onChatButton += OnChatButtonClicked;
         catNameButton.onCatNameButtonClicked += OnCatNameButtonClicked;
         saveNameButton.onSaveNameButtonClicked += OnSaveNameButtonClicked;
+    }
+
+    private void OnChatButtonClicked()
+    {
+        vivoxLoginUI.OnUserLoggedOut();
     }
 
     private void OnSaveNameButtonClicked()
