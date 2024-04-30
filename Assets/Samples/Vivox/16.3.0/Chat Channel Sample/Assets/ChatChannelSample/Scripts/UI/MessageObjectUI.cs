@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MessageObjectUI : MonoBehaviour
 {
-
     public Text MessageText;
     public Button EditButton;
     public Button DeleteButton;
