@@ -13,7 +13,10 @@ public class WidgetManager : MonoBehaviour
     [SerializeField] private CatNameButton catNameButton;
     [SerializeField] private SaveNameButton saveNameButton;
     [SerializeField] private GameObject catNamePopup;
-
+    private void OnEnable()
+    {
+        catNamePopup.SetActive(false);
+    }
     private void Start()
     {
         cookieManager.OnAteCookie += OnAteCookie;
@@ -35,7 +38,6 @@ public class WidgetManager : MonoBehaviour
 
     private void OnCatNameButtonClicked()
     {
-        Debug.Log("cat name clicked");
         if (!catNamePopup.activeSelf)
         {
             catNamePopup.SetActive(true);
