@@ -946,11 +946,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: d26a62e2-80a7-4e4b-8d52-c8df9b9f2740
+  cloudProjectId: c836b21b-7abf-4fef-a99b-59c1a8ffe56f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: AehyoCat
-  organizationId: relugames
+  organizationId: yejin_eva
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
