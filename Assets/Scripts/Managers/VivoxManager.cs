@@ -19,6 +19,7 @@ public class VivoxManager : MonoBehaviour
 {
     public Vivox vivox = new Vivox();
     public const string LobbyChannelName = "lobbyChannel";
+    public LoginOptions loginOptions;
 
     static VivoxManager vivoxInstance;
 

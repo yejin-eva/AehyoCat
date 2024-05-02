@@ -91,15 +91,15 @@ public class VivoxLoginUI : MonoBehaviour
         loginButton.interactable = false;
 
         await VivoxManager.Instance.InitializeAsync(cat.CatName);
-        var loginOptions = new LoginOptions() 
+        VivoxManager.Instance.loginOptions = new LoginOptions
         { 
-            DisplayName = $"{cat.CatName}'s owner",
+            DisplayName = $"{cat.CatName}",
             ParticipantUpdateFrequency = ParticipantPropertyUpdateFrequency.FivePerSecond
         };
 
         try
         {
-            await VivoxService.Instance.LoginAsync(loginOptions);
+            await VivoxService.Instance.LoginAsync(VivoxManager.Instance.loginOptions);
             loginStatusText.text = "";
         }
         catch (Exception e)

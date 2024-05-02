@@ -12,6 +12,8 @@ public class VivoxLobbyUI : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button logoutButton;
     [SerializeField] private UnityEngine.UI.Button lobbyScreenIcon;
     [SerializeField] private GameObject lobbyScreen;
+    [SerializeField] private GameObject loggedInUsersUI;
+    [SerializeField] private GameObject vivoxUserLoginPrefab;
     [SerializeField] private GameObject connectionIndicatorDot;
     [SerializeField] private GameObject connectionIndicatorText;
 
@@ -85,7 +87,18 @@ public class VivoxLobbyUI : MonoBehaviour
         lobbyScreenIcon.gameObject.SetActive(true);
 
         eventSystem.SetSelectedGameObject(logoutButton.gameObject, null);
+
+        ShowConnectedUser();
     }
+
+    private void ShowConnectedUser()
+    {
+        var user = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
+        var vivoxUserLogin = user.GetComponent<vivoxUserLoginPrefab>();
+        vivoxUserLogin.SetUserId(VivoxService.Instance.SignedInPlayerId);
+        vivoxUserLogin.SetDisplayName(VivoxManager.Instance.loginOptions.DisplayName);
+    }
+
     private void OnUserLoggedOut()
     {
         lobbyScreen.SetActive(false);

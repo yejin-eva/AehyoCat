@@ -26,9 +26,7 @@ public class LocationManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             GeoLocationData geoLocationData = JsonUtility.FromJson<GeoLocationData>(request.downloadHandler.text);
-            Debug.Log(geoLocationData.city);
-            Debug.Log(geoLocationData.ip);
-
+            
             WeatherAPIHelper.Latitude = geoLocationData.latitude;
             WeatherAPIHelper.Longitude = geoLocationData.longitude;
 
