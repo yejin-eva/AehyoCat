@@ -37,14 +37,8 @@ public class VivoxTextChatUI : MonoBehaviour
     {
         ClearTextField();
     }
-    private void OnDisable()
-    {
-        if (messageObjectPool.Count > 0)
-        {
-            ClearMessageObjectPool();
-        }
-        oldestMessage = null;
-    }
+    
+
     private void ScrollRectChange(Vector2 arg0)
     {
         //scrolled near end and check if we fetched history already
@@ -63,6 +57,7 @@ public class VivoxTextChatUI : MonoBehaviour
             { 
                 TimeEnd = oldestMessage
             };
+
             var historyMessages = await VivoxService.Instance.GetChannelTextMessageHistoryAsync(VivoxVoiceManager.LobbyChannelName, 10, chatHistoryOptions);
             var reversedMessages = historyMessages.Reverse();
             foreach(var historyMessage in reversedMessages)
@@ -85,6 +80,12 @@ public class VivoxTextChatUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (messageObjectPool.Count > 0)
+        {
+            ClearMessageObjectPool();
+        }
+        oldestMessage = null;
+
         VivoxService.Instance.ChannelJoined -= OnChannelJoined;
         VivoxService.Instance.DirectedMessageReceived -= OnDirectedMessageReceived;
         VivoxService.Instance.ChannelMessageReceived -= OnChannelMessageReceived;

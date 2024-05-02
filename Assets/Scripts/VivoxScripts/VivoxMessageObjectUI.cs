@@ -6,7 +6,7 @@ public class VivoxMessageObjectUI : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI messageText;
 
-    private VivoxMessage vivoxMessage;
+    public VivoxMessage vivoxMessage;
     public void SetTextMessage(VivoxMessage message)
     {
         this.vivoxMessage = message;
@@ -23,5 +23,10 @@ public class VivoxMessageObjectUI : MonoBehaviour
                 ? string.Format($"<color=purple>{message.SenderDisplayName}'s owner </color>: {message.MessageText}\n<color=#5A5A5A><size=8>{message.ReceivedTime}</size></color>") // DM
                 : string.Format($"<color=green>{message.SenderDisplayName}'s owner </color>: {message.MessageText}\n<color=#5A5A5A><size=8>{message.ReceivedTime}</size></color>"); // Channel Message
         }
+    }
+
+    public async void DeleteMessage()
+    {
+        await VivoxService.Instance.DeleteChannelTextMessageAsync(VivoxManager.LobbyChannelName, vivoxMessage.MessageText);
     }
 }

@@ -18,6 +18,7 @@ public class VivoxLobbyUI : MonoBehaviour
     [SerializeField] private GameObject connectionIndicatorText;
 
     private EventSystem eventSystem;
+    private GameObject connectedUserStatusObject = null;
     private UnityEngine.UI.Image connectionIndicatorDotImage;
     private TMPro.TextMeshProUGUI connectionIndicatorDotText;
 
@@ -88,22 +89,27 @@ public class VivoxLobbyUI : MonoBehaviour
 
         eventSystem.SetSelectedGameObject(logoutButton.gameObject, null);
 
-        ShowConnectedUser();
-    }
-
-    private void ShowConnectedUser()
-    {
-        var user = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
-        var vivoxUserLogin = user.GetComponent<vivoxUserLoginPrefab>();
-        vivoxUserLogin.SetUserId(VivoxService.Instance.SignedInPlayerId);
-        vivoxUserLogin.SetDisplayName(VivoxManager.Instance.loginOptions.DisplayName);
+        CreateConnectedUser();
     }
 
     private void OnUserLoggedOut()
     {
         lobbyScreen.SetActive(false);
         lobbyScreenIcon.gameObject.SetActive(false);
+        DestroyConnectedUser();
     }
+    private void CreateConnectedUser()
+    {
+        connectedUserStatusObject = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
+        var vivoxUserLogin = connectedUserStatusObject.GetComponent<vivoxUserLoginPrefab>();
+        vivoxUserLogin.SetUserId(VivoxService.Instance.SignedInPlayerId);
+        vivoxUserLogin.SetDisplayName(VivoxManager.Instance.loginOptions.DisplayName);
+    }
+    private void DestroyConnectedUser()
+    {
+        Destroy(connectedUserStatusObject);
+    }
+
     private void OnLobbyScreenIconClicked()
     {
         if (lobbyScreen.activeSelf == false)
