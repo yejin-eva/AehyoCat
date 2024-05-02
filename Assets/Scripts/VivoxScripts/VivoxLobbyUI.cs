@@ -40,6 +40,8 @@ public class VivoxLobbyUI : MonoBehaviour
         {
             Debug.LogError("Unable to find ConnectionIndicatorText Text object.");
         }
+        connectionIndicatorDotImage.color = Color.green;
+        connectionIndicatorDotText.text = "Connected";
 
         VivoxService.Instance.LoggedIn += OnUserLoggedIn;
         VivoxService.Instance.LoggedOut += OnUserLoggedOut;
@@ -49,9 +51,6 @@ public class VivoxLobbyUI : MonoBehaviour
         VivoxService.Instance.ConnectionRecovering += OnConnectionRecovering;
         VivoxService.Instance.ConnectionFailedToRecover += OnConnectionFailedToRecover;
         
-        connectionIndicatorDotImage.color = Color.green;
-        connectionIndicatorDotText.text = "Connected";
-
         logoutButton.onClick.AddListener(() => { LogoutOfVivoxServiceAsync(); });
         lobbyScreenIcon.onClick.AddListener(() => { OnLobbyScreenIconClicked(); });
 
