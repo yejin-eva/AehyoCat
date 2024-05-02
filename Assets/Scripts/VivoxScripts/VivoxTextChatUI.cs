@@ -16,7 +16,7 @@ public class VivoxTextChatUI : MonoBehaviour
     [SerializeField] private GameObject messageObject;
     [SerializeField] private Button enterButton;
     [SerializeField] private TMPro.TMP_InputField messageInputField;
-    [SerializeField] private TMPro.TextMeshProUGUI messageDirectedText;
+    [SerializeField] private TMPro.TextMeshProUGUI messageReceiverText;
 
     private VivoxUserPrefab toggledParticipant = null;
     private IList<KeyValuePair<string, VivoxMessageObjectUI>> messageObjectPool = new List<KeyValuePair<string, VivoxMessageObjectUI>>();
@@ -198,10 +198,12 @@ public class VivoxTextChatUI : MonoBehaviour
             {
                 toggledParticipant.ToggleButton.isOn = false;
             }
+            messageReceiverText.text = $"To: {newToggledParticipant.Participant.DisplayName}";
             toggledParticipant = newToggledParticipant;
         }
         else
         {
+            messageReceiverText.text = "To: All";
             toggledParticipant = null;
         }
     }
