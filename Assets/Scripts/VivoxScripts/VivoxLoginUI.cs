@@ -28,12 +28,12 @@ public class VivoxLoginUI : MonoBehaviour
         loginButton.onClick.AddListener(() => { LoginToVivoxService(); });
         exitLoginButton.onClick.AddListener(() => OnExitButtonClicked());
 
-        OnUserLoggedIn();
+        HideLoginUI();
     }
 
     private void OnExitButtonClicked()
     {
-        OnUserLoggedIn();
+        HideLoginUI();
     }
 
     private void OnDestroy()
@@ -107,6 +107,7 @@ public class VivoxLoginUI : MonoBehaviour
             loginStatusText.text = "Login failed";
             Debug.LogError(e);
         }
+
     }
 
     private void ShowLoginUI()
