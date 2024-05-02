@@ -94,6 +94,7 @@ public class VivoxTextChatUI : MonoBehaviour
         VivoxService.Instance.ChannelJoined -= OnChannelJoined;
         VivoxService.Instance.DirectedMessageReceived -= OnDirectedMessageReceived;
         VivoxService.Instance.ChannelMessageReceived -= OnChannelMessageReceived;
+        
 
         textChatScrollRect.onValueChanged.RemoveAllListeners();
     }
@@ -133,6 +134,7 @@ public class VivoxTextChatUI : MonoBehaviour
         if (toggledParticipant != null)
         {
             VivoxService.Instance.SendDirectTextMessageAsync(toggledParticipant.Participant.PlayerId, messageInputField.text);
+            ShowDirectedMessageToSelf(messageInputField.text, toggledParticipant.Participant.DisplayName);
             ClearTextField();
         }
         else
@@ -140,6 +142,20 @@ public class VivoxTextChatUI : MonoBehaviour
             VivoxService.Instance.SendChannelTextMessageAsync(VivoxManager.LobbyChannelName, messageInputField.text);
             ClearTextField();
         }
+        
+    }
+
+    private void ShowDirectedMessageToSelf(string text, string displayName)
+    {
+        var newMessageObj = Instantiate(messageObject, chatContent.transform);
+        var newMessageTextObject = newMessageObj.GetComponent<VivoxMessageObjectUI>();
+
+        newMessageTextObject.SetTextMessageToSelf(text, displayName);
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatContent.transform);
+
+        StartCoroutine(SendScrollRectToBottom());
         
     }
 

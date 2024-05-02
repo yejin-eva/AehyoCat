@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Unity.Services.Vivox;
 using UnityEngine;
 
@@ -25,6 +26,17 @@ public class VivoxMessageObjectUI : MonoBehaviour
         }
     }
 
+    public void SetTextMessageToSelf(string message, string receiver)
+    {
+        messageText.alignment = TMPro.TextAlignmentOptions.Right;
+        messageText.text = string.Format($"{message} : <color=blue>DM to {receiver} </color> \n <color=#5A5A5A><size=8>{GetCurrentTime()}</size></color>");
+    }
+    private string GetCurrentTime()
+    {
+        CultureInfo ci = new CultureInfo("ko-KR");
+        DateTime now = DateTime.Now;
+        return now.ToString("yyyy-MM-dd tt h:mm:ss", ci);
+    }
     public async void DeleteMessage()
     {
         await VivoxService.Instance.DeleteChannelTextMessageAsync(VivoxManager.LobbyChannelName, vivoxMessage.MessageText);

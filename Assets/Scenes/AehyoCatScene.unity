@@ -1399,7 +1399,7 @@ MonoBehaviour:
   messageObject: {fileID: 6719642270333051814, guid: ac9b04436487d67429238e834e261dc2, type: 3}
   enterButton: {fileID: 675480893}
   messageInputField: {fileID: 1676564113}
-  messageDirectedText: {fileID: 0}
+  messageReceiverText: {fileID: 1069434893}
 --- !u!1 &551037184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,7 +2969,7 @@ GameObject:
   - component: {fileID: 1069434894}
   - component: {fileID: 1069434893}
   m_Layer: 5
-  m_Name: MessageDirectedText
+  m_Name: MessageReceiverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
