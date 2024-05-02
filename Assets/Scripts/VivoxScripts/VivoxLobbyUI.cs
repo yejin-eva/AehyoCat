@@ -18,10 +18,9 @@ public class VivoxLobbyUI : MonoBehaviour
     [SerializeField] private GameObject connectionIndicatorText;
 
     private EventSystem eventSystem;
-    private GameObject connectedUserStatusObject = null;
     private UnityEngine.UI.Image connectionIndicatorDotImage;
     private TMPro.TextMeshProUGUI connectionIndicatorDotText;
-    private Dictionary<string, GameObject> connectedUsers = new Dictionary<string, GameObject>();
+    private Dictionary<string, vivoxUserPrefab> connectedUsers = new Dictionary<string, vivoxUserPrefab>();
 
     private void Start()
     {
@@ -113,19 +112,18 @@ public class VivoxLobbyUI : MonoBehaviour
     }
     private void CreateConnectedUser(VivoxParticipant participant)
     {
-        var connectedUser = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
-        var vivoxUserLogin = connectedUser.GetComponent<vivoxUserLoginPrefab>();
-        vivoxUserLogin.SetUserId(participant.PlayerId);
-        vivoxUserLogin.SetDisplayName(participant.DisplayName);
-
-        connectedUsers.Add(participant.PlayerId, connectedUser);
+        var vivoxUserObject = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
+        var vivoxUser = vivoxUserObject.GetComponent<vivoxUserPrefab>();
+        vivoxUser.Init(participant);
+        
+        connectedUsers.Add(participant.PlayerId, vivoxUser);
     }
     private void DestroyConnectedUser(VivoxParticipant participant)
     {
-        if (connectedUsers.TryGetValue(participant.PlayerId, out GameObject userGameObject))
+        if (connectedUsers.TryGetValue(participant.PlayerId, out vivoxUserPrefab vivoxUser))
         {
             connectedUsers.Remove(participant.PlayerId);
-            Destroy(userGameObject);
+            Destroy(vivoxUser.gameObject);
         }
         else
         {

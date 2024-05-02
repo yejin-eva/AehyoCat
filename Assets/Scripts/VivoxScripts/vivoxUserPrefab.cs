@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Vivox;
 using UnityEngine;
 
-public class vivoxUserLoginPrefab : MonoBehaviour
+public class vivoxUserPrefab : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI displayNameText;
 
@@ -11,17 +12,16 @@ public class vivoxUserLoginPrefab : MonoBehaviour
     {
         this.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnVivoxUserLoginPrefabClicked());
     }
-
+    public void Init(VivoxParticipant participant)
+    {
+        SetDisplayName(participant.DisplayName);
+    }
     private void OnVivoxUserLoginPrefabClicked()
     {
         Debug.Log(userId);
     }
-    public void SetUserId(string userId)
-    {
-        this.userId = userId;
-    }
 
-    public void SetDisplayName(string displayName)
+    private void SetDisplayName(string displayName)
     {
         displayNameText.text = $"{displayName}'s owner";
     }
