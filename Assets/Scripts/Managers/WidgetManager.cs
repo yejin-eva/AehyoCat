@@ -68,6 +68,7 @@ public class WidgetManager : MonoBehaviour
     {
         weatherButton.gameObject.SetActive(status);
         stickyNotesButton.gameObject.SetActive(status);
+        chatButton.gameObject.SetActive(status);
     }
 
     private void OnAteCookie()

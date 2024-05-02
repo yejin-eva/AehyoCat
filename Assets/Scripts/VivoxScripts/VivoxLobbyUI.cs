@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 public class VivoxLobbyUI : MonoBehaviour
 {
     [SerializeField] private UnityEngine.UI.Button logoutButton;
+    [SerializeField] private UnityEngine.UI.Button lobbyScreenIcon;
     [SerializeField] private GameObject lobbyScreen;
     [SerializeField] private GameObject connectionIndicatorDot;
     [SerializeField] private GameObject connectionIndicatorText;
@@ -46,7 +47,9 @@ public class VivoxLobbyUI : MonoBehaviour
         connectionIndicatorDotText.text = "Connected";
 
         logoutButton.onClick.AddListener(() => { LogoutOfVivoxServiceAsync(); });
+        lobbyScreenIcon.onClick.AddListener(() => { OnLobbyScreenIconClicked(); });
 
+        lobbyScreenIcon.gameObject.SetActive(false);
         // Make sure the UI is in a reset/off state from the start.
         OnUserLoggedOut();
     }
@@ -78,11 +81,26 @@ public class VivoxLobbyUI : MonoBehaviour
         lobbyScreen.SetActive(true);
         await JoinLobbyChannel();
         logoutButton.interactable = true;
+
+        lobbyScreenIcon.gameObject.SetActive(true);
+
         eventSystem.SetSelectedGameObject(logoutButton.gameObject, null);
     }
     private void OnUserLoggedOut()
     {
         lobbyScreen.SetActive(false);
+        lobbyScreenIcon.gameObject.SetActive(false);
+    }
+    private void OnLobbyScreenIconClicked()
+    {
+        if (lobbyScreen.activeSelf == false)
+        {
+            lobbyScreen.SetActive(true);
+        }
+        else
+        {
+            lobbyScreen.SetActive(false);
+        }
     }
     private void OnConnectionRecovering()
     {
