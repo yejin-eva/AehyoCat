@@ -131,7 +131,7 @@ public class VivoxTextChatUI : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        textChatScrollRect.normalizedPosition = new Vector2(0, 0);
+        textChatScrollRect.verticalNormalizedPosition = 0;
         
         yield return null;
     }
@@ -164,6 +164,10 @@ public class VivoxTextChatUI : MonoBehaviour
         }
 
         newMessageTextObject.SetTextMessage(message);
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatContent.transform);
+
         if (scrollToBottom)
         {
             StartCoroutine(SendScrollRectToBottom());
