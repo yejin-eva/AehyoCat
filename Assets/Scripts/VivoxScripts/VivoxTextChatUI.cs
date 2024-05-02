@@ -9,11 +9,16 @@ using UnityEngine.UI;
 
 public class VivoxTextChatUI : MonoBehaviour
 {
+    public Action unSelectAllUsers;
+    public VivoxUserPrefab ToggledParticipant { get => toggledParticipant; set => toggledParticipant = value; }
+
     [SerializeField] private GameObject chatContent;
     [SerializeField] private GameObject messageObject;
     [SerializeField] private Button enterButton;
     [SerializeField] private TMPro.TMP_InputField messageInputField;
+    [SerializeField] private TMPro.TextMeshProUGUI messageDirectedText;
 
+    private VivoxUserPrefab toggledParticipant = null;
     private IList<KeyValuePair<string, VivoxMessageObjectUI>> messageObjectPool = new List<KeyValuePair<string, VivoxMessageObjectUI>>();
     private ScrollRect textChatScrollRect;
     private Task FetchMessages = null;
@@ -124,8 +129,18 @@ public class VivoxTextChatUI : MonoBehaviour
         {
             return;
         }
-        VivoxService.Instance.SendChannelTextMessageAsync(VivoxManager.LobbyChannelName, messageInputField.text);
-        ClearTextField();
+
+        if (toggledParticipant != null)
+        {
+            VivoxService.Instance.SendDirectTextMessageAsync(toggledParticipant.Participant.PlayerId, messageInputField.text);
+            ClearTextField();
+        }
+        else
+        {
+            VivoxService.Instance.SendChannelTextMessageAsync(VivoxManager.LobbyChannelName, messageInputField.text);
+            ClearTextField();
+        }
+        
     }
 
     IEnumerator SendScrollRectToBottom()
@@ -172,6 +187,22 @@ public class VivoxTextChatUI : MonoBehaviour
         if (scrollToBottom)
         {
             StartCoroutine(SendScrollRectToBottom());
+        }
+    }
+
+    public void OnToggledParticipant(VivoxUserPrefab newToggledParticipant, bool isToggled)
+    {
+        if (isToggled)
+        {
+            if (toggledParticipant != null)
+            {
+                toggledParticipant.ToggleButton.isOn = false;
+            }
+            toggledParticipant = newToggledParticipant;
+        }
+        else
+        {
+            toggledParticipant = null;
         }
     }
 }

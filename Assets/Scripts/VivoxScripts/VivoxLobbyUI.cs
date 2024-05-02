@@ -16,11 +16,12 @@ public class VivoxLobbyUI : MonoBehaviour
     [SerializeField] private GameObject vivoxUserLoginPrefab;
     [SerializeField] private GameObject connectionIndicatorDot;
     [SerializeField] private GameObject connectionIndicatorText;
+    [SerializeField] private VivoxTextChatUI vivoxTextChatUI;
 
     private EventSystem eventSystem;
     private UnityEngine.UI.Image connectionIndicatorDotImage;
     private TMPro.TextMeshProUGUI connectionIndicatorDotText;
-    private Dictionary<string, vivoxUserPrefab> connectedUsers = new Dictionary<string, vivoxUserPrefab>();
+    private Dictionary<string, VivoxUserPrefab> connectedUsers = new Dictionary<string, VivoxUserPrefab>();
 
     private void Start()
     {
@@ -47,7 +48,7 @@ public class VivoxLobbyUI : MonoBehaviour
         VivoxService.Instance.ConnectionRecovered += OnConnectionRecovered;
         VivoxService.Instance.ConnectionRecovering += OnConnectionRecovering;
         VivoxService.Instance.ConnectionFailedToRecover += OnConnectionFailedToRecover;
-
+        
         connectionIndicatorDotImage.color = Color.green;
         connectionIndicatorDotText.text = "Connected";
 
@@ -58,6 +59,7 @@ public class VivoxLobbyUI : MonoBehaviour
         // Make sure the UI is in a reset/off state from the start.
         OnUserLoggedOut();
     }
+
 
     private void OnParticipantRemovedFromChannel(VivoxParticipant participant)
     {
@@ -78,7 +80,7 @@ public class VivoxLobbyUI : MonoBehaviour
         VivoxService.Instance.ConnectionRecovered -= OnConnectionRecovered;
         VivoxService.Instance.ConnectionRecovering -= OnConnectionRecovering;
         VivoxService.Instance.ConnectionFailedToRecover -= OnConnectionFailedToRecover;
-
+        
         logoutButton.onClick.RemoveAllListeners();
     }
     Task JoinLobbyChannel()
@@ -113,15 +115,18 @@ public class VivoxLobbyUI : MonoBehaviour
     private void CreateConnectedUser(VivoxParticipant participant)
     {
         var vivoxUserObject = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
-        var vivoxUser = vivoxUserObject.GetComponent<vivoxUserPrefab>();
+        var vivoxUser = vivoxUserObject.GetComponent<VivoxUserPrefab>();
+        vivoxUser.onToggledParticipant += (toggledParticipant, isToggled) => vivoxTextChatUI.OnToggledParticipant(toggledParticipant, isToggled);
+
         vivoxUser.Init(participant);
         
         connectedUsers.Add(participant.PlayerId, vivoxUser);
     }
     private void DestroyConnectedUser(VivoxParticipant participant)
     {
-        if (connectedUsers.TryGetValue(participant.PlayerId, out vivoxUserPrefab vivoxUser))
+        if (connectedUsers.TryGetValue(participant.PlayerId, out VivoxUserPrefab vivoxUser))
         {
+            vivoxUser.onToggledParticipant -= (participant, isToggled) => vivoxTextChatUI.OnToggledParticipant(participant, isToggled);
             connectedUsers.Remove(participant.PlayerId);
             Destroy(vivoxUser.gameObject);
         }
