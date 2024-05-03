@@ -343,6 +343,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayNameText: {fileID: 4843336185965755455}
   toggleButton: {fileID: 5158498673226131250}
+  muteButton: {fileID: 6993801065388815759}
+  muteSprite: {fileID: 21300000, guid: 643b7e6b269039e46b23502f57922b84, type: 3}
+  notSpeakingSprite: {fileID: 21300000, guid: 11e2a2782c806b74b86c4621628ae30c, type: 3}
+  speakingSprite: {fileID: 21300000, guid: 0640b514c129e42f2b9f781322b59182, type: 3}
 --- !u!1 &6301278887622026847
 GameObject:
   m_ObjectHideFlags: 0
