@@ -13,6 +13,7 @@ public class VivoxUserPrefab : MonoBehaviour
 
     [SerializeField] private TMPro.TextMeshProUGUI displayNameText;
     [SerializeField] private Toggle toggleButton;
+    [SerializeField] private Button muteButton;
 
     VivoxParticipant participant;
     private void Start()

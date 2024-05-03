@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.Services.Vivox;
 using UnityEngine;
 
-public class VivoxRosterUI : MonoBehaviour
+public class VivoxRosterManager : MonoBehaviour
 {
     [SerializeField] private GameObject vivoxUserPrefab;
     [SerializeField] private VivoxTextChatUI vivoxTextChatUI;
