@@ -12,8 +12,6 @@ public class VivoxLobbyUI : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button logoutButton;
     [SerializeField] private UnityEngine.UI.Button lobbyScreenIcon;
     [SerializeField] private GameObject lobbyScreen;
-    [SerializeField] private GameObject loggedInUsersUI;
-    [SerializeField] private GameObject vivoxUserLoginPrefab;
     [SerializeField] private GameObject connectionIndicatorDot;
     [SerializeField] private GameObject connectionIndicatorText;
     [SerializeField] private VivoxTextChatUI vivoxTextChatUI;
@@ -21,8 +19,7 @@ public class VivoxLobbyUI : MonoBehaviour
     private EventSystem eventSystem;
     private UnityEngine.UI.Image connectionIndicatorDotImage;
     private TMPro.TextMeshProUGUI connectionIndicatorDotText;
-    private Dictionary<string, VivoxUserPrefab> connectedUsers = new Dictionary<string, VivoxUserPrefab>();
-
+    
     private void Start()
     {
         eventSystem = EventSystem.current;
@@ -45,8 +42,6 @@ public class VivoxLobbyUI : MonoBehaviour
 
         VivoxService.Instance.LoggedIn += OnUserLoggedIn;
         VivoxService.Instance.LoggedOut += OnUserLoggedOut;
-        VivoxService.Instance.ParticipantAddedToChannel += OnParticipantAddedToChannel;
-        VivoxService.Instance.ParticipantRemovedFromChannel += OnParticipantRemovedFromChannel;
         VivoxService.Instance.ConnectionRecovered += OnConnectionRecovered;
         VivoxService.Instance.ConnectionRecovering += OnConnectionRecovering;
         VivoxService.Instance.ConnectionFailedToRecover += OnConnectionFailedToRecover;
@@ -59,23 +54,10 @@ public class VivoxLobbyUI : MonoBehaviour
         OnUserLoggedOut();
     }
 
-
-    private void OnParticipantRemovedFromChannel(VivoxParticipant participant)
-    {
-        DestroyConnectedUser(participant);
-    }
-
-    private void OnParticipantAddedToChannel(VivoxParticipant participant)
-    {
-        CreateConnectedUser(participant);
-    }
-
     private void OnDestroy()
     {
         VivoxService.Instance.LoggedIn -= OnUserLoggedIn;
         VivoxService.Instance.LoggedOut -= OnUserLoggedOut;
-        VivoxService.Instance.ParticipantAddedToChannel -= OnParticipantAddedToChannel;
-        VivoxService.Instance.ParticipantRemovedFromChannel -= OnParticipantRemovedFromChannel;
         VivoxService.Instance.ConnectionRecovered -= OnConnectionRecovered;
         VivoxService.Instance.ConnectionRecovering -= OnConnectionRecovering;
         VivoxService.Instance.ConnectionFailedToRecover -= OnConnectionFailedToRecover;
@@ -109,31 +91,8 @@ public class VivoxLobbyUI : MonoBehaviour
     {
         lobbyScreen.SetActive(false);
         lobbyScreenIcon.gameObject.SetActive(false);
-        
     }
-    private void CreateConnectedUser(VivoxParticipant participant)
-    {
-        var vivoxUserObject = Instantiate(vivoxUserLoginPrefab, loggedInUsersUI.transform);
-        var vivoxUser = vivoxUserObject.GetComponent<VivoxUserPrefab>();
-        vivoxUser.onToggledParticipant += (toggledParticipant, isToggled) => vivoxTextChatUI.OnToggledParticipant(toggledParticipant, isToggled);
-
-        vivoxUser.Init(participant);
-        
-        connectedUsers.Add(participant.PlayerId, vivoxUser);
-    }
-    private void DestroyConnectedUser(VivoxParticipant participant)
-    {
-        if (connectedUsers.TryGetValue(participant.PlayerId, out VivoxUserPrefab vivoxUser))
-        {
-            vivoxUser.onToggledParticipant -= (participant, isToggled) => vivoxTextChatUI.OnToggledParticipant(participant, isToggled);
-            connectedUsers.Remove(participant.PlayerId);
-            Destroy(vivoxUser.gameObject);
-        }
-        else
-        {
-            Debug.Log("User not found: " + participant.DisplayName);
-        }
-    }
+    
 
     private void OnLobbyScreenIconClicked()
     {

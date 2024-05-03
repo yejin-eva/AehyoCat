@@ -5391,8 +5391,6 @@ MonoBehaviour:
   logoutButton: {fileID: 928735837}
   lobbyScreenIcon: {fileID: 1767190958}
   lobbyScreen: {fileID: 1064157596}
-  loggedInUsersUI: {fileID: 3163302277112387385}
-  vivoxUserLoginPrefab: {fileID: 4931375754078820648, guid: f37630972c054b740b60bdd343630527, type: 3}
   connectionIndicatorDot: {fileID: 991358025}
   connectionIndicatorText: {fileID: 1966816354}
   vivoxTextChatUI: {fileID: 523899548}
@@ -5810,8 +5808,9 @@ GameObject:
   - component: {fileID: 4822476202156327057}
   - component: {fileID: 8059624867757902410}
   - component: {fileID: 8863385370978460685}
+  - component: {fileID: 8863385370978460686}
   m_Layer: 5
-  m_Name: LoggedInUsersUI
+  m_Name: VivoxRosterUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5938,6 +5937,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8863385370978460686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163302277112387385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b889ee4c24cd9c944b4255183f68bc8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vivoxUserPrefab: {fileID: 4931375754078820648, guid: f37630972c054b740b60bdd343630527, type: 3}
+  vivoxTextChatUI: {fileID: 523899548}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
