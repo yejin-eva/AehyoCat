@@ -2808,12 +2808,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1023712082}
+  - {fileID: 8863385370978460684}
   - {fileID: 523899544}
   - {fileID: 928735836}
   - {fileID: 1935757817}
   - {fileID: 675480892}
   - {fileID: 1676564112}
-  - {fileID: 8863385370978460684}
   - {fileID: 1069434892}
   m_Father: {fileID: 1889016101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5810,7 +5810,7 @@ GameObject:
   - component: {fileID: 8863385370978460685}
   - component: {fileID: 8863385370978460686}
   m_Layer: 5
-  m_Name: VivoxRosterUI
+  m_Name: VivoxRosterManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,8 +16,11 @@ public class VivoxUserPrefab : MonoBehaviour
     [SerializeField] private Button muteButton;
 
     VivoxParticipant participant;
-    private void Start()
+
+    public void SetupVivoxUser(VivoxParticipant participant)
     {
+        this.participant = participant;
+
         if (participant.IsSelf)
         {
             toggleButton.gameObject.SetActive(false);
@@ -26,21 +29,17 @@ public class VivoxUserPrefab : MonoBehaviour
         {
             toggleButton.gameObject.SetActive(true);
         }
-        this.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnVivoxUserLoginPrefabClicked());
+        this.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnVivoxUserPrefabButtonClicked());
         toggleButton.onValueChanged.AddListener((value) => OnToggleValueChanged(value));
+        SetDisplayName(participant.DisplayName);
     }
-
     private void OnToggleValueChanged(bool isToggled)
     {
         onToggledParticipant?.Invoke(this, isToggled);
     }
 
-    public void Init(VivoxParticipant participant)
-    {
-        this.participant = participant;
-        SetDisplayName(participant.DisplayName);
-    }
-    private void OnVivoxUserLoginPrefabClicked()
+    
+    private void OnVivoxUserPrefabButtonClicked()
     {
         Debug.Log(participant.DisplayName);
     }

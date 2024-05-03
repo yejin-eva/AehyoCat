@@ -35,7 +35,7 @@ public class VivoxRosterManager : MonoBehaviour
         var vivoxUser = vivoxUserObject.GetComponent<VivoxUserPrefab>();
         vivoxUser.onToggledParticipant += (toggledParticipant, isToggled) => vivoxTextChatUI.OnToggledParticipant(toggledParticipant, isToggled);
 
-        vivoxUser.Init(participant);
+        vivoxUser.SetupVivoxUser(participant);
 
         connectedUsers.Add(participant.PlayerId, vivoxUser);
     }
