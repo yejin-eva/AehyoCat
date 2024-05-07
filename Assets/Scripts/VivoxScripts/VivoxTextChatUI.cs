@@ -15,6 +15,7 @@ public class VivoxTextChatUI : MonoBehaviour
     [SerializeField] private GameObject chatContent;
     [SerializeField] private GameObject messageObject;
     [SerializeField] private Button enterButton;
+    [SerializeField] private Button sendTTSButton;
     [SerializeField] private TMPro.TMP_InputField messageInputField;
     [SerializeField] private TMPro.TextMeshProUGUI messageReceiverText;
 
@@ -33,11 +34,23 @@ public class VivoxTextChatUI : MonoBehaviour
         textChatScrollRect = GetComponent<UnityEngine.UI.ScrollRect>();
 
         enterButton.onClick.AddListener(SendMessage);
+        sendTTSButton.onClick.AddListener(SubmitTTSMessageToVivox);
+
         messageInputField.onEndEdit.AddListener((string text) => { EnterKeyOnTextField(); });
         
-
         textChatScrollRect.onValueChanged.AddListener(ScrollRectChange);
     }
+
+    private void SubmitTTSMessageToVivox()
+    {
+        if (string.IsNullOrEmpty(messageInputField.text))
+        {
+            return;
+        }
+        VivoxService.Instance.TextToSpeechSendMessage(messageInputField.text, TextToSpeechMessageType.RemoteTransmissionWithLocalPlayback);
+        ClearTextField();
+    }
+
     private void OnEnable()
     {
         ClearTextField();
